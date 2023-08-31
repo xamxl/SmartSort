@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Smart Sort</title>
+    <link rel="icon" href="so.png">
+    <style>
+		.custom-file-button input[type="file"] {
+			margin-left: -2px !important;
+		}
+		.custom-file-button input[type="file"]::-webkit-file-upload-button {
+			display: none;
+		}
+		.custom-file-button input[type="file"]::file-selector-button {
+			display: none;
+		}
+		.custom-file-button:hover label {
+			background-color: #dde0e3;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100%; margin: 0;">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html">
+            <img src="so.png" width="30" height="30" alt="Logo" class="d-inline-block align-top">
+        </a>
+    
+        <!-- The navbar-toggler is the button that shows up in small viewports, that users can click to expand the nav links -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: none; outline: none;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <!-- Everything inside this div will be collapsed on small viewports -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/index.html">Home</a>
+                <a class="nav-item nav-link" href="/page1.html">Sort Structure & Weights</a>
+                <a class="nav-item nav-link" href="/page2.html">File Selection & Additional Parameters</a>
+                <a class="nav-item nav-link" href="/output.html">View Output</a>
+                <a class="nav-item nav-link" href="/clean.html">Clean Input (New!! &#129395)</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center">File Selection & Additional Parameters</h1>
+        <form id="form-page-2" action="submission.html" method="get">
+            <div class="form-group">
+                <p name="file1p"></p>
+                <label name="file1label">Individuals xlsx file:</label>
+                <div name="file1buttondiv" style="display: flex;align-items: baseline;">
+                    <label name="file1buttonlabel" style="margin-right: 10px;"></label>
+                    <button name="file1button" class="btn btn-primary" style="background-color: #fff; border-color: #ced4da; color: #495057;">Select New File</button>
+                </div>
+                <input type="file" accept=".xlsx"  name="file1" class="form-control">
+            </div>
+            <!-- <div class="input-group custom-file-button">
+                <p name="file1p"></p>
+                <label class="input-group-text" for="inputGroupFile">Select Individuals xlsx File</label>
+                <input type="file" name="file1" class="form-control" id="inputGroupFile">
+            </div> -->
+            <div class="form-group">
+                <p name="file2p"></p>
+                <label name="file2label">Locations xlsx file:</label>
+                <div name="file2buttondiv" style="display: flex;align-items: baseline;">
+                    <label name="file2buttonlabel" style="margin-right: 10px;"></label>
+                    <button name="file2button" class="btn btn-primary" style="background-color: #fff; border-color: #ced4da; color: #495057;">Select New File</button>
+                </div>
+                <input type="file" accept=".xlsx" name="file2" class="form-control">
+            </div>
+            <!-- <div class="input-group custom-file-button">
+                <p name="file2p"></p>
+                <label class="input-group-text" for="inputGroupFile">Select Locations xlsx File</label>
+                <input type="file" name="file2" class="form-control" id="inputGroupFile">
+            </div> -->
+            <div class="form-group">
+                <label>Location minimum size weight:</label>
+                <input type="number" name="number1" placeholder="Default weight: 1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Iterations:</label>
+                <input type="number" name="number2" placeholder="0" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Number of Sorts:</label>
+                <input type="number" name="number3" placeholder="Default number of sorts: 1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Sort name:</label>
+                <input type="text" name="string" placeholder="Untitled" class="form-control">
+            </div>
+            <div style="color: red;" name="errorText"></div>
+            <a href="page1.html" class="btn btn-primary mt-4">< Back</a>
+            <a href="output.html" class="btn btn-primary mt-4">Continue With Previous Output ></a>
+            <input type="submit" name="runTag" value="Run >" class="btn btn-primary mt-4">
+            <input type="submit" name="runRandomTag" value="Sort Randomly >" class="btn btn-primary mt-4">
+        </form>
+    </div>
+    <div class="mt-5"></div> <!-- Empty space -->
+    <footer class="footer mt-auto py-3 bg-light text-center">
+        <div class="container"></div>
+            <span class="text-muted">For support, contact <a href="mailto:maxlaibson@gmail.com?subject=Question About Smart Sort" target="_blank">maxlaibson@gmail.com</a>.</span>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="script2.js"></script>
+</body>
+</html>
+
+<style>
+input[type="submit"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+</style>

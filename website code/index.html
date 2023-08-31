@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Smart Sort</title>
+    <link rel="icon" href="so.png">
+    <meta charset="UTF-8">
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100%; margin: 0;">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html">
+            <img src="so.png" width="30" height="30" alt="Logo" class="d-inline-block align-top">
+        </a>
+    
+        <!-- The navbar-toggler is the button that shows up in small viewports, that users can click to expand the nav links -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: none; outline: none;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <!-- Everything inside this div will be collapsed on small viewports -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/index.html">Home</a>
+                <a class="nav-item nav-link" href="/page1.html">Sort Structure & Weights</a>
+                <a class="nav-item nav-link" href="/page2.html">File Selection & Additional Parameters</a>
+                <a class="nav-item nav-link" href="/output.html">View Output</a>
+                <a class="nav-item nav-link" href="/clean.html">Clean Input (New!! 🥳)</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                        <a class="dropdown-item" href="/login.html">Login</a>
+                        <a class="dropdown-item" href="/create-account.html">Create Account</a>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to Smart Sort 1.1 Alpha! ⬆️</h1>
+        <!-- <p class="lead mt-4">
+            Smart Sort is a general purpose sorting platform which allows for advanced customization and speed. All sorts are run using google cloud. Please note that Smart Sort is still in development and may contain errors. Incorrect inputs may cause Smart Sort to lose functionality until it is restarted. This includes inputs which contain "," or "\n" or double quotes. All input numbers should be non negative integers.<br><br>Smart Sort is developed by Maxwell Laibson with help from generative AI. Please send questions to <a href="mailto:maxlaibson@gmail.com?subject=Question About Smart Sort" target="_blank">maxlaibson@gmail.com</a>.
+        </p> -->
+        <p class="lead mt-4">
+            Smart Sort is a general purpose sorting platform which allows for advanced customization and speed. All sorts are run using google cloud. Please note that Smart Sort is still in development and may contain errors.<br><br>Smart Sort is developed by Maxwell Laibson with help from generative AI. Please send questions to <a href="mailto:maxlaibson@gmail.com?subject=Question About Smart Sort" target="_blank">maxlaibson@gmail.com</a>.
+        </p>
+        <a href="page1.html" id="startWithoutSaved" class="btn btn-primary mt-4">Start New Sort</a>
+        <a href="page1.html" id="start" class="btn btn-primary mt-4">Continue With Locally Saved Values</a>
+        <a href="clean.html" id="start" class="btn btn-primary mt-4">Clean Input (New!! 🥳)</a>
+        <div class="mt-5"></div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Dd5K/NEWVIDEONEEDED/XzdP9bc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <p class="lead mt-4">
+            <a href="https://docs.google.com/document/d/1QQ0tn8G7BMOHmbqI46Qh-iSXm0yZt0wm5GmmP5xtN8Y/edit?usp=sharing" target="_blank">Click here for a guide to using Smart Sort</a>.
+        </p>
+    </div>
+    <div class="mt-5"></div> <!-- Empty space -->
+    <footer class="footer mt-auto py-3 bg-light text-center">
+        <div class="container">
+            <span class="text-muted">For support, contact <a href="mailto:maxlaibson@gmail.com?subject=Question About Smart Sort" target="_blank">maxlaibson@gmail.com</a>.</span>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
