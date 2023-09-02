@@ -31,6 +31,8 @@ public class SortInput {
     private String weight11;
     private String value12;
     private String weight12;
+    private String email;
+    private String key;
 
     public String getString() {
         if (string.equals("")) {
@@ -273,6 +275,22 @@ public class SortInput {
 
     public void setWeight12(String weight12) {
         this.weight12 = weight12;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email; 
     }
 
 }

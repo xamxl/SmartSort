@@ -2,6 +2,11 @@ let running = false;
 let file1UsingSaved = false;
 let file2UsingSaved = false;
 
+function getCookie(name) {
+    const value = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+    return value ? value.split('=')[1] : false;
+}
+
 window.onload = function() {
     var page2Data = JSON.parse(localStorage.getItem('page2Data'));
     var page1Data = JSON.parse(localStorage.getItem('page1Data'));
@@ -179,7 +184,6 @@ async function saveForm() {
 
     if (data.file2.name !== "") {
         data.file2Name = data.file2.name;
-        console.log("test");
         await processForSave(data.file2, 'file2');
     } else {
         var page2Data = JSON.parse(localStorage.getItem('page2Data'));
@@ -232,6 +236,15 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
     // processForSave();
     // localStorage.setItem('page2Data', JSON.stringify(data));
     saveForm().then(() => {
+
+    console.log(!getCookie("loginKey"));
+    if (!getCookie("loginKey")) {
+        window.location.href = "login.html?prev=page2";
+        return;
+    }
+
+    formData.append("email", getCookie("email"));
+    formData.append("key", getCookie("loginKey"));
 
     document.getElementsByName("runRandomTag")[0].value = "Running ...";
 
@@ -288,8 +301,12 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
             throw new Error('HTTP error, status = ' + response.status);
         }
         response.json().then((result) => {
-            localStorage.setItem('sortResult', JSON.stringify(result));
-            window.location.href = "output.html";
+            if (result.hasOwnProperty('text')) {
+                window.location.href = "login.html?prev=page2";
+            } else {
+                window.location.href = "output.html";
+                localStorage.setItem('sortResult', JSON.stringify(result));
+            }
         });
     })
     .catch(function(error) {
@@ -330,6 +347,10 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
         document.querySelector("label[name='file2label']").textContent = "Locations xlsx file:";
     }
 
+    if ((data.file1.name == "" && !file1UsingSaved) || (data.file2.name == "" && !file2UsingSaved)) {
+        return;
+    }
+
     // data.file1Name = data.file1.name;
     // data.file2Name = data.file2.name;
     // async function processForSave() {
@@ -342,9 +363,13 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
     // localStorage.setItem('page2Data', JSON.stringify(data));
     saveForm().then(() => {
 
-    if ((data.file1.name == "" && !file1UsingSaved) || (data.file2.name == "" && !file2UsingSaved)) {
+    if (!getCookie("loginKey")) {
+        window.location.href = "login.html?prev=page2";
         return;
     }
+
+    formData.append("email", getCookie("email"));
+    formData.append("key", getCookie("loginKey"));
 
     document.getElementsByName("runTag")[0].value = "Running ...";
 
@@ -400,8 +425,12 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
             throw new Error('HTTP error, status = ' + response.status);
         }
         response.json().then((result) => {
-            localStorage.setItem('sortResult', JSON.stringify(result));
-            window.location.href = "output.html";
+            if (result.hasOwnProperty('text')) {
+                window.location.href = "login.html?prev=page2";
+            } else {
+                localStorage.setItem('sortResult', JSON.stringify(result));
+                window.location.href = "output.html";
+            }
         });
     })
     .catch(function(error) {

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 
 import java.util.*;
 
+// TODO: catch errors so that it does not crash
 @SpringBootApplication
 public class SmartsortApplication {
 
@@ -59,6 +60,9 @@ class FormDataController {
   @PostMapping("/upload")
   public String handleFormUpload(@ModelAttribute SortInput sortInput, @RequestParam String type) {
 
+      if (! AccountServices.verifyLogin(sortInput.getEmail(), sortInput.getKey()))
+          return "{\"text\":\"INVALID\"}";
+
       Sort bestSort = null;
       ArrayList<Double> bestAverageUnhappinessOverIterations = null;
       for (int sortNum = 0; sortNum < sortInput.getNumber3(); sortNum++) {
@@ -92,10 +96,6 @@ class FormDataController {
                   averageUnhappinessOverIterations.add(sort.getUnhappiness()/sort.getIndividuals().length);
                   //System.out.print(sort.getUnhappiness() + ",");
               }
-              /*for (int i = 0; i < iter; i++) {
-              System.out.print(i + ",");
-              }
-              sort.sumUnhappiness();*/
           } else {
               sort.randomAssignment();
               sort.sumUnhappiness();

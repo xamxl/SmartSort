@@ -12,6 +12,8 @@ window.onload = function() {
             document.getElementsByName("errorText")[0].style.display = "none";
             document.getElementsByName("errorText")[0].innerHTML = "";
             document.getElementsByName("aLink")[0].style.display = "block";
+            document.cookie = "loginKey=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
     });
 }

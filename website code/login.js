@@ -1,4 +1,5 @@
 let running = false;
+let redirect = "";
 
 window.onload = function() {
     document.getElementsByName("errorText")[0].style.color = "black";
@@ -28,6 +29,14 @@ window.onload = function() {
             document.getElementsByName("errorText")[0].innerHTML = "Account created.";
 
             // Redirect to the new URL without 'ac=true'
+            window.history.replaceState({}, document.title, url.toString());
+        } else if (url.search.endsWith('prev=page2')) {
+            redirect = "page2.html";
+            url.searchParams.delete('prev');
+
+            document.getElementsByName("errorText")[0].style.color = "red";
+            document.getElementsByName("errorText")[0].innerHTML = "You must be logged in to run a sort.";
+            
             window.history.replaceState({}, document.title, url.toString());
         }
     });
@@ -121,6 +130,9 @@ document.getElementById('form-login').addEventListener('submit', function(event)
                 expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000));
                 document.cookie = "loginKey=" + result.text + "; expires=" + expires.toUTCString() + "; path=/;";
                 document.cookie = "email=" + data.email + "; expires=" + expires.toUTCString() + "; path=/;";
+                if (redirect != "") {
+                    window.location.href = redirect;
+                }
                 document.getElementsByName("errorText")[0].style.color = "green";
                 document.getElementsByName("errorText")[0].innerHTML = "Login successful! Welcome " + data.email + ".";
                 document.getElementsByName("loginTag")[0].style.display = "none";
