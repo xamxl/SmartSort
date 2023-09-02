@@ -2,6 +2,7 @@ package com.example.smartsort;
 
 import java.util.*;
 
+// TODO: Read through all of this to make sure it is safe
 public class AccountServices {
 
     // TODO: Add salted hash
@@ -77,7 +78,7 @@ public class AccountServices {
         fSH.setFileReference("users", username);
         // Checks if the key exists and matches
         Map<String, Object> userFile = fSH.readFile();
-        if (! userFile.containsKey("tempPass") || ! userFile.get("tempPass").equals(key))
+        if (! userFile.containsKey("tempPass") || ! userFile.get("tempPass").equals(key) || userFile.get("tempPass").equals(""))
             return false;
         // Returns true
         return true;

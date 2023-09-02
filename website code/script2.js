@@ -14,23 +14,21 @@ window.onload = function() {
     }
 
     if (page2Data && page2Data.file1Name != "" && page2Data.file1Name != undefined) {
-        document.querySelector('input[name="file1"]').style.display = "none";
-        document.querySelector('label[name="file1label"]').style.display = "none";
-        document.querySelector('div[name="file1buttondiv"]').style.display = "visible";
+        document.querySelector('div[name="file1buttondiv"]').style.display = "flex";
         document.querySelector('button[name="file2button"]').style.margin = "0px";
         document.querySelector('label[name="file1buttonlabel"]').innerHTML = "Using saved file: " + page2Data.file1Name;
         file1UsingSaved = true;
     } else {
-        document.querySelector('div[name="file1buttondiv"]').style.display = "none";
+        document.querySelector('input[name="file1"]').style.display = "block";
+        document.querySelector('label[name="file1label"]').style.display = "block";
     }
     if (page2Data && page2Data.file2Name != "" && page2Data.file2Name != undefined) {
-        document.querySelector('input[name="file2"]').style.display = "none";
-        document.querySelector('label[name="file2label"]').style.display = "none";
-        document.querySelector('div[name="file2buttondiv"]').style.display = "visible";
+        document.querySelector('div[name="file2buttondiv"]').style.display = "flex";
         document.querySelector('label[name="file2buttonlabel"]').innerHTML = "Using saved file: " + page2Data.file2Name;
         file2UsingSaved = true;
     } else {
-        document.querySelector('div[name="file2buttondiv"]').style.display = "none";
+        document.querySelector('input[name="file2"]').style.display = "block";
+        document.querySelector('label[name="file2label"]').style.display = "block";
     }
 
     var intArray = [];

@@ -1,5 +1,56 @@
 let running = false;
 
+window.onload = function() {
+    document.getElementsByName("errorText")[0].style.color = "black";
+    document.getElementsByName("errorText")[0].innerHTML = "Please wait while we check if you are logged in.";
+
+    isLoggedIn().then(output => {
+        if (output) {
+            document.getElementsByName("errorText")[0].style.color = "green";
+            document.getElementsByName("errorText")[0].innerHTML = "You are already logged in!";
+        } else {
+            document.getElementsByName("emailInput")[0].style.display = "block";
+            document.getElementsByName("password1Input")[0].style.display = "block";
+            document.getElementsByName("password2Input")[0].style.display = "block";
+            document.getElementsByName("createAccountTag")[0].style.display = "block";
+            document.getElementsByName("lILink")[0].style.display = "block";
+            document.getElementsByName("errorText")[0].innerHTML = "";
+        }
+    });
+}
+
+function getCookie(name) {
+    const value = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+    return value ? value.split('=')[1] : false;
+}
+
+async function isLoggedIn() {
+    if (!getCookie("loginKey")) {
+        return false;
+    }
+
+    const formData = new FormData();
+    formData.append("email", getCookie("email"));
+    formData.append("key", getCookie("loginKey"));
+
+    try {
+        const response = await fetch('http://localhost:8080/verifyLogin', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        const result = await response.json();
+        return result.text == "VALID";
+        
+    } catch (error) {
+        return false;
+    }
+}
+
 document.getElementById('form-create-account').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -31,8 +82,6 @@ document.getElementById('form-create-account').addEventListener('submit', functi
         document.querySelector("label[name='confirmPasswordLabel']").style.color = "black";
         document.querySelector("label[name='confirmPasswordLabel']").textContent = "Confirm Password:";
     }
-
-    // Create account with server
 
     if (data.email == "" || data.password == "" || data.confirmPassword == "") {
         return;

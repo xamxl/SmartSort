@@ -236,7 +236,7 @@ class FormDataController {
   @CrossOrigin(origins = "http://localhost:8888")
   @PostMapping("/login")
   public String handleFormLogin(@ModelAttribute LoginInput loginInput) {
-        if (AccountServices.checkUsernameAndPasswordL(loginInput.getEmail(), loginInput.getPassword()))
+        if (! AccountServices.checkUsernameAndPasswordL(loginInput.getEmail(), loginInput.getPassword()))
             return "{\"text\":\"INVALID\"}";
         return "{\"text\":\"" + AccountServices.login(loginInput.getEmail()) + "\"}";
   }
@@ -244,7 +244,7 @@ class FormDataController {
   @CrossOrigin(origins = "http://localhost:8888")
   @PostMapping("/verifyLogin")
   public String handelVerifyLogin(@ModelAttribute VerifyLoginInput verifyLoginInput) {
-        if (AccountServices.verifyLogin(verifyLoginInput.getEmail(), verifyLoginInput.getKey()))
+        if (! AccountServices.verifyLogin(verifyLoginInput.getEmail(), verifyLoginInput.getKey()))
             return "{\"text\":\"INVALID\"}";
         return "{\"text\":\"VALID\"}";
   }
@@ -252,6 +252,8 @@ class FormDataController {
   @CrossOrigin(origins = "http://localhost:8888")
   @PostMapping("/signout")
   public void handelSignout(@ModelAttribute SignoutInput signoutInput) {
+        if (! AccountServices.verifyLogin(signoutInput.getEmail(), signoutInput.getKey()))
+            return;
         AccountServices.signout(signoutInput.getEmail());
   }
 

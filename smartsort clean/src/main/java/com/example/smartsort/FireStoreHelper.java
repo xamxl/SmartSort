@@ -54,17 +54,23 @@ public class FireStoreHelper {
         return false;
     }
 
-    // Writes to the current file using id Strings and values of type Object
+    // Writes to the current file using id Strings and values of type Object, creating it if it does not exist
     public void writeToFile(ArrayList<String> ids, ArrayList<Object> values) {
         // Creates a new Map and fills it with the provided values
         Map<String, Object> data = new HashMap<>();
         for (int i = 0; i < ids.size(); i++)
             data.put(ids.get(i), values.get(i));
-        // Writes to the file
-        // A file is created if none exists
-        documentReference.set(data);
-    }  
+        // Checks if the document exists
+        if (doesFileExist()) {
+            // Update the document if it exists
+            documentReference.update(data);
+        } else {
+            // Set the document if it doesn't exist
+            documentReference.set(data);
+        }
+    }
 
+    // Reads the current file
     public Map<String, Object> readFile() {
         // Asynchronously retrieve the document
         ApiFuture<DocumentSnapshot> future = documentReference.get();
