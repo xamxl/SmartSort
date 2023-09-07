@@ -41,6 +41,7 @@ public class SmartsortApplication {
                 registry.addMapping("/login-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/verifyLogin-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/signout-javaconfig").allowedOrigins("http://localhost:8888");
+                registry.addMapping("/deleteAccount-javaconfig").allowedOrigins("http://localhost:8888");
 			}
 		};
 	}
@@ -193,6 +194,7 @@ class FormDataController {
       return jsonString;
   }
 
+  // TODO: protect with account
   @CrossOrigin(origins = "http://localhost:8888")
   @PostMapping("/uploadClean")
   public String handleFormUploadClean(@ModelAttribute CleanInput cleanInput) {
@@ -255,6 +257,15 @@ class FormDataController {
         if (! AccountServices.verifyLogin(signoutInput.getEmail(), signoutInput.getKey()))
             return;
         AccountServices.signout(signoutInput.getEmail());
+  }
+
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/deleteAccount")
+  public String handelDeleteAccount(@ModelAttribute DeleteAccountInput deleteAccountInput) {
+        if (! AccountServices.verifyLogin(deleteAccountInput.getEmail(), deleteAccountInput.getKey()))
+            return "{\"text\":\"INVALID\"}";;
+        AccountServices.deleteAccount(deleteAccountInput.getEmail());
+        return "{\"text\":\"VALID\"}";
   }
 
 }

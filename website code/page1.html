@@ -8,27 +8,9 @@
 <body style="display: flex; flex-direction: column; min-height: 100%; margin: 0;">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
-        <a class="navbar-brand" href="/index.html">
-            <img src="so.png" width="30" height="30" alt="Logo" class="d-inline-block align-top">
-        </a>
-    
-        <!-- The navbar-toggler is the button that shows up in small viewports, that users can click to expand the nav links -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: none; outline: none;">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <!-- Everything inside this div will be collapsed on small viewports -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/index.html">Home</a>
-                <a class="nav-item nav-link" href="/page1.html">Sort Structure & Weights</a>
-                <a class="nav-item nav-link" href="/page2.html">File Selection & Additional Parameters</a>
-                <a class="nav-item nav-link" href="/output.html">View Output</a>
-                <a class="nav-item nav-link" href="/clean.html">Clean Input (New!! &#129395)</a>
-            </div>
-        </div>
-    </nav>
+    <div id="header"></div>
+<script src="myFunctions.js"></script>
+<script src="header.js"></script>
     
     <div class="container mt-5">
         <h1 class="text-center">Sort Structure & Weights</h1>
@@ -36,7 +18,7 @@
             <div id="inputs-container">
                 <!-- dynamically generated input fields will go here -->
             </div>
-            <a href="index.html" class="btn btn-primary mt-4">< Back</a>
+            <a href="/index.html" class="btn btn-primary mt-4">< Back</a>
             <input type="submit" value="Next Page >" class="btn btn-primary mt-4">
         </form>
     </div>
@@ -46,6 +28,7 @@
             <span class="text-muted">For support, contact <a href="mailto:maxlaibson@gmail.com?subject=Question About Smart Sort" target="_blank">maxlaibson@gmail.com</a>.</span>
         </div>
     </footer>
+    
     <script src="script1.js"></script>
 </body>
 </html>

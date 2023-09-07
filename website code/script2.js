@@ -2,11 +2,6 @@ let running = false;
 let file1UsingSaved = false;
 let file2UsingSaved = false;
 
-function getCookie(name) {
-    const value = document.cookie.split('; ').find(row => row.startsWith(name + '='));
-    return value ? value.split('=')[1] : false;
-}
-
 window.onload = function() {
     var page2Data = JSON.parse(localStorage.getItem('page2Data'));
     var page1Data = JSON.parse(localStorage.getItem('page1Data'));
@@ -106,96 +101,6 @@ function readFileAsXlsx(file) {
     });
 }
 
-// Function to save the current form data
-// function saveForm() {
-//     var form = document.getElementById('form-page-2');
-//     var formData = new FormData(form);
-//     var data = {};
-
-//     // convert form data to JSON
-//     for (var pair of formData.entries()) {
-//         data[pair[0]] = pair[1];
-//     }
-
-//     if (data.file1.name != "") {
-//         data.file1Name = data.file1.name;
-//         async function processForSave() {
-//             const [text1] = await Promise.all([readFileAsXlsx(data.file1)]);
-//             alert("not final" + text1);
-//             data.file1 = text1;
-//             alert(data.file1);
-//         }
-//         processForSave();
-//     } else {
-//         var page2Data = JSON.parse(localStorage.getItem('page2Data'));
-//         if (page2Data) {
-//             alert("Working");
-//             console.log(page2Data.file1);
-//             console.log(data.file1);
-//             data.file1 = page2Data.file1;
-//             data.file1Name = page2Data.file1Name;
-//         }
-//         alert("other" + data.file1);
-//     }
-//     if (data.file2.name != "") {
-//         data.file2Name = data.file2.name;
-//         async function processForSave() {
-//             const [text2] = await Promise.all([readFileAsXlsx(data.file2)]);
-//             data.file2 = text2;
-//         }
-//         processForSave();
-//     } else {
-//         var page2Data = JSON.parse(localStorage.getItem('page2Data'));
-//         if (page2Data) {
-//             data.file2 = page2Data.file2;
-//             data.file2Name = page2Data.file2Name;
-//         }
-//     }
-
-//     alert("final" + JSON.stringify(data));
-//     // store form data in LocalStorage
-//     localStorage.setItem('page2Data', JSON.stringify(data));
-// }
-
-async function saveForm() {
-    var form = document.getElementById('form-page-2');
-    var formData = new FormData(form);
-    var data = {};
-
-    for (var pair of formData.entries()) {
-        data[pair[0]] = pair[1];
-    }
-
-    async function processForSave(file, key) {
-        const [text] = await Promise.all([readFileAsXlsx(file)]);
-        data[key] = text;
-    }
-
-    if (data.file1.name !== "") {
-        data.file1Name = data.file1.name;
-        await processForSave(data.file1, 'file1');
-    } else {
-        var page2Data = JSON.parse(localStorage.getItem('page2Data'));
-        if (page2Data) {
-            data.file1 = page2Data.file1;
-            data.file1Name = page2Data.file1Name;
-        }
-    }
-
-    if (data.file2.name !== "") {
-        data.file2Name = data.file2.name;
-        await processForSave(data.file2, 'file2');
-    } else {
-        var page2Data = JSON.parse(localStorage.getItem('page2Data'));
-        if (page2Data) {
-            data.file2 = page2Data.file2;
-            data.file2Name = page2Data.file2Name;
-        }
-    }
-
-    localStorage.setItem('page2Data', JSON.stringify(data));
-}
-
 document.getElementsByName('runRandomTag')[0].addEventListener('click', function(event) {
     event.preventDefault();
 
@@ -235,7 +140,7 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
 
     // processForSave();
     // localStorage.setItem('page2Data', JSON.stringify(data));
-    saveForm().then(() => {
+    saveForm("page2.html").then(() => {
 
     console.log(!getCookie("loginKey"));
     if (!getCookie("loginKey")) {
@@ -361,7 +266,7 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
 
     // processForSave();
     // localStorage.setItem('page2Data', JSON.stringify(data));
-    saveForm().then(() => {
+    saveForm("page2.html").then(() => {
 
     if (!getCookie("loginKey")) {
         window.location.href = "login.html?prev=page2";
@@ -464,32 +369,4 @@ document.getElementsByName('file2button')[0].addEventListener('click', function(
     document.querySelector('label[name="file2label"]').innerHTML = "Locations xlsx file:";
     document.querySelector('input[name="file2"]').style.display = "block";
     file2UsingSaved = false;
-});
-
-document.querySelector('a[href="page1.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
-});
-
-document.querySelector('a[href="output.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
-});
-
-document.querySelector('a[href="/index.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
-});
-
-document.querySelector('a[href="/page1.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
-});
-
-document.querySelector('a[href="/page2.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
-});
-
-document.querySelector('a[href="/output.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
-});
-
-document.querySelector('a[href="/clean.html"]').addEventListener('click', function(event) {
-    saveForm().then(() => {});
 });

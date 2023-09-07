@@ -4,10 +4,7 @@ document.querySelector('a[name="delete"]').addEventListener('click', function(ev
 
 window.onload = function() {
     const sortResult = JSON.parse(localStorage.getItem('sortResult'));
-    console.log(sortResult);
     if(sortResult) {
-        document.getElementsByName("download")[0].style.visibility = "block";
-        document.getElementsByName("download1")[0].style.visibility = "block";
         document.getElementsByName("mainText")[0].innerText = "Best " + sortResult.numberOfSorts + " of sorts. Average unhappiness: " + Number(Math.round(sortResult.averageUnhappiness + "e5") + "e-5");
         document.getElementsByName("titleText")[0].innerText = "Sort Results: " + sortResult.title;
 
@@ -99,6 +96,8 @@ window.onload = function() {
     } else {
         document.getElementsByName("mainText")[0].innerText = "";
         document.getElementsByName("titleText")[0].innerText = "No Saved Output";
+        document.getElementsByName("download")[0].style.display = "none"
+        document.getElementsByName("download1")[0].style.display = "none";
     }
 }
 

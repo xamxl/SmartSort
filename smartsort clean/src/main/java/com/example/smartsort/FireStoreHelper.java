@@ -35,6 +35,13 @@ public class FireStoreHelper {
         }
     }
 
+    // Closes the FireStoreHelper
+    public void close() {
+        try {
+            db.close();
+        } catch (Exception e) {}
+    }
+
     // Sets the document reference to a new file
     public void setFileReference(String collectionID, String fileID) {
         documentReference = db.collection(collectionID).document(fileID);
@@ -78,10 +85,18 @@ public class FireStoreHelper {
         DocumentSnapshot document = null;
         try {
             document = future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            System.out.println("readFile has failed.");
-        }
+        } catch (InterruptedException | ExecutionException e) {}
         return document.getData();
     }
+
+    // Deletes the current file
+    public void deleteFile() {
+        // Asynchronously delete the document
+        ApiFuture<WriteResult> future = documentReference.delete();
+        try {
+            // Confirm the deletion
+            future.get();
+        } catch (InterruptedException | ExecutionException e) {}
+    }    
     
 }

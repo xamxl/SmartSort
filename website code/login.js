@@ -42,38 +42,6 @@ window.onload = function() {
     });
 }
 
-function getCookie(name) {
-    const value = document.cookie.split('; ').find(row => row.startsWith(name + '='));
-    return value ? value.split('=')[1] : false;
-}
-
-async function isLoggedIn() {
-    if (!getCookie("loginKey")) {
-        return false;
-    }
-
-    const formData = new FormData();
-    formData.append("email", getCookie("email"));
-    formData.append("key", getCookie("loginKey"));
-
-    try {
-        const response = await fetch('http://localhost:8080/verifyLogin', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response.ok) {
-            return false;
-        }
-
-        const result = await response.json();
-        return result.text == "VALID";
-        
-    } catch (error) {
-        return false;
-    }
-}
-
 document.getElementById('form-login').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -97,6 +65,10 @@ document.getElementById('form-login').addEventListener('submit', function(event)
     } else {
         document.querySelector("label[name='passwordLabel']").style.color = "black";
         document.querySelector("label[name='passwordLabel']").textContent = "Password:";
+    }
+
+    if (data.email == "" || data.password == "") {
+        return;
     }
 
     if (running) {
