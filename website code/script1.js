@@ -1,3 +1,4 @@
+// TODO: Save whenever there is a change
 window.onload = function() {
     var container = document.getElementById('inputs-container');
     var form = document.getElementById('form-page-1');
@@ -20,7 +21,7 @@ window.onload = function() {
     "Attributes to not isolate",
     "Attributes to isolate"];
 
-    for (var i = 0; i < tags.length; i++) {
+    for (let i = 0; i < tags.length; i++) {
         var formRow = document.createElement('div');
         formRow.className = 'form-row';
 
@@ -53,10 +54,44 @@ window.onload = function() {
         div2.className = 'form-group col-md-6';
 
         var inputWeight = document.createElement('input');
-        inputWeight.type = 'number';
         inputWeight.name = 'weight' + (i+1);
-        inputWeight.className = 'form-control';
         inputWeight.placeholder = 'Default weight: 1';
+        inputWeight.className = 'form-control';
+        if (i < tags.length - 4) {
+            inputWeight.type = 'number';
+        } else {
+            var num = 1;
+            if (data[inputValue.name]) {
+                num = parseInt(data[inputValue.name]);
+            }
+            if (num < 1 || isNaN(num)) {
+                num = 1;
+            }
+            let def = "";
+            for (var j = 0; j < num; j++) {
+                def += "1, "
+            }
+            if (num == 1) {
+                inputWeight.placeholder = "Default weight: " + def.slice(0, -2);
+            } else {
+                inputWeight.placeholder = "Default multi-weight: " + def.slice(0, -2);
+            }
+            inputValue.addEventListener('input', function() {
+                var num = parseInt(this.value);
+                if (num < 1 || isNaN(num)) {
+                    num = 1;
+                }
+                let def = "";
+                for (var j = 0; j < num; j++) {
+                    def += "1, "
+                }
+                if (num == 1) {
+                    document.querySelector("input[name='weight" + (i + 1) + "']").placeholder = "Default weight: " + def.slice(0, -2);
+                } else {
+                    document.querySelector("input[name='weight" + (i + 1) + "']").placeholder = "Default multi-weight: " + def.slice(0, -2);
+                }
+            });
+        }
 
         // If there's saved data, populate the input field with it
         if (data[inputWeight.name]) {

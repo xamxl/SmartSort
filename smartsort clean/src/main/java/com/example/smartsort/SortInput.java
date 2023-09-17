@@ -221,7 +221,15 @@ public class SortInput {
         this.value9 = value9;
     }
     
-    public int getWeight9() {
+    //
+    public int[] getWeight9() {
+        int[] toRet = new int[getValue9()];
+        for (int i = 0; i < toRet.length; i++) {
+            toRet[i] = 1;
+        }
+        if (weight9 == null || weight9.equals("")) {
+            return toRet;
+        }
         return (weight9 == null || weight9.equals("")) ? 1 : Integer.parseInt(weight9);
     }
 
@@ -237,6 +245,7 @@ public class SortInput {
         this.value10 = value10;
     }
     
+    //
     public int getWeight10() {
         return (weight10 == null || weight10.equals("")) ? 1 : Integer.parseInt(weight10);
     }
@@ -253,6 +262,7 @@ public class SortInput {
         this.value11 = value11;
     }
     
+    // 
     public int getWeight11() {
         return (weight11 == null || weight11.equals("")) ? 1 : Integer.parseInt(weight11);
     }
@@ -269,6 +279,7 @@ public class SortInput {
         this.value12 = value12;
     }
     
+    //
     public int getWeight12() {
         return (weight12 == null || weight12.equals("")) ? 1 : Integer.parseInt(weight12);
     }

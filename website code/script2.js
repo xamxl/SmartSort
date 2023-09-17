@@ -130,16 +130,6 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
         return;
     }
 
-    // data.file1Name = data.file1.name;
-    // data.file2Name = data.file2.name;
-    // async function processForSave() {
-    //     const [text1, text2] = await Promise.all([readFileAsXlsx(data.file1), readFileAsXlsx(data.file2)]);
-    //     data.file1 = text1;
-    //     data.file2 = text2;
-    // }
-
-    // processForSave();
-    // localStorage.setItem('page2Data', JSON.stringify(data));
     saveForm("page2.html").then(() => {
 
     console.log(!getCookie("loginKey"));
@@ -256,16 +246,6 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
         return;
     }
 
-    // data.file1Name = data.file1.name;
-    // data.file2Name = data.file2.name;
-    // async function processForSave() {
-    //     const [text1, text2] = await Promise.all([readFileAsXlsx(data.file1), readFileAsXlsx(data.file2)]);
-    //     data.file1 = text1;
-    //     data.file2 = text2;
-    // }
-
-    // processForSave();
-    // localStorage.setItem('page2Data', JSON.stringify(data));
     saveForm("page2.html").then(() => {
 
     if (!getCookie("loginKey")) {
