@@ -8,11 +8,11 @@ public class Individual {
 
     private double[] maxUnhappiness;
 
-    private double[] weights;
+    private double[][] weights;
 
     private String name;
 
-    public Individual(ArrayList<String> x, int[] choiceParameters, double[] w) {
+    public Individual(ArrayList<String> x, int[] choiceParameters, double[][] w) {
         weights = w;
         name = x.get(0);
 
@@ -88,14 +88,14 @@ public class Individual {
         }
         if (! chosen)
             uS += choices[0].length * 2;
-        unhappiness += weights[0] * MyUtility.interpolate(maxUnhappiness[0], uS);
+        unhappiness += weights[0][0] * MyUtility.interpolate(maxUnhappiness[0], uS);
 
         uS = 0;
         for (int i = 0; i < choices[1].length; i++) {
             if (l.getName().equals(choices[1][i]))
                 uS += choices[1].length - i;
         }
-        unhappiness += weights[1] * MyUtility.interpolate(maxUnhappiness[1], uS);
+        unhappiness += weights[1][0] * MyUtility.interpolate(maxUnhappiness[1], uS);
 
         uS = 0;
         chosen = false;
@@ -106,7 +106,7 @@ public class Individual {
         }
         if (! chosen)
             uS += choices[2].length * 2;
-        unhappiness += weights[2] * MyUtility.interpolate(maxUnhappiness[2], uS);
+        unhappiness += weights[2][0] * MyUtility.interpolate(maxUnhappiness[2], uS);
 
         uS = 0;
         for (int i = 0; i < choices[3].length; i++) {
@@ -114,7 +114,7 @@ public class Individual {
                 uS += 10;
             }
         }
-        unhappiness += weights[3] * MyUtility.interpolate(maxUnhappiness[3], uS);
+        unhappiness += weights[3][0] * MyUtility.interpolate(maxUnhappiness[3], uS);
 
         uS = 0;
         chosen = false;
@@ -130,7 +130,7 @@ public class Individual {
         }
         if (! chosen)
             uS += choices[4].length * 2;
-        unhappiness += weights[4] * MyUtility.interpolate(maxUnhappiness[4], uS);
+        unhappiness += weights[4][0] * MyUtility.interpolate(maxUnhappiness[4], uS);
 
         uS = 0;
         for (int i = 0; i < choices[5].length; i++) {
@@ -143,7 +143,7 @@ public class Individual {
             if (found)
                 uS += choices[5].length - i;
         }
-        unhappiness += weights[5] * MyUtility.interpolate(maxUnhappiness[5], uS);
+        unhappiness += weights[5][0] * MyUtility.interpolate(maxUnhappiness[5], uS);
 
         uS = 0;
         for (int i = 0; i < choices[6].length; i++) {
@@ -155,7 +155,7 @@ public class Individual {
             if (! found)
                 uS += 2;
         }
-        unhappiness += weights[6] * MyUtility.interpolate(maxUnhappiness[6], uS);
+        unhappiness += weights[6][0] * MyUtility.interpolate(maxUnhappiness[6], uS);
 
         uS = 0;
         for (int i = 0; i < choices[7].length; i++) {
@@ -167,7 +167,7 @@ public class Individual {
             if (found)
                 uS += 10;
         }
-        unhappiness += weights[7] * MyUtility.interpolate(maxUnhappiness[7], uS);
+        unhappiness += weights[7][0] * MyUtility.interpolate(maxUnhappiness[7], uS);
         
         return Math.pow(unhappiness, 2);
     }

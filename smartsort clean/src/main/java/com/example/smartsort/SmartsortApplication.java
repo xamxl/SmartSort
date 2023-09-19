@@ -67,7 +67,7 @@ class FormDataController {
       Sort bestSort = null;
       ArrayList<Double> bestAverageUnhappinessOverIterations = null;
       for (int sortNum = 0; sortNum < sortInput.getNumber3(); sortNum++) {
-          double[] weights = {sortInput.getWeight1(), sortInput.getWeight2(), sortInput.getWeight3(), sortInput.getWeight4(), sortInput.getWeight5(), sortInput.getWeight6(), sortInput.  getWeight7(), sortInput.getWeight8(), sortInput.getWeight9(), sortInput.getWeight10(), sortInput.getNumber1(), sortInput.getWeight11(), sortInput.getWeight12()};
+          double[][] weights = {{sortInput.getWeight1()}, {sortInput.getWeight2()}, {sortInput.getWeight3()}, {sortInput.getWeight4()}, {sortInput.getWeight5()}, {sortInput.getWeight6()}, {sortInput.getWeight7()}, {sortInput.getWeight8()}, sortInput.getWeight9(), sortInput.getWeight10(), {sortInput.getNumber1()}, sortInput.getWeight11(), sortInput.getWeight12()};
           ArrayList<ArrayList<String>> input = MyUtility.readJsonStringInput(sortInput.getFile1());
           Individual[] ind = new Individual[input.size()];
           for (int i = 0; i < input.size(); i++)
