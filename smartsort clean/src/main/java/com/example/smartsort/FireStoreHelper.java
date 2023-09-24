@@ -21,7 +21,7 @@ public class FireStoreHelper {
     public FireStoreHelper() {
         try {
             // Gets credentials from file
-            FileInputStream serviceAccount = new FileInputStream ("./smart-sort-392323-9924fe9e7db8.json");
+            FileInputStream serviceAccount = new FileInputStream ("./smart-sort-392323-c1a78e38811c.json");
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             // Creates fire store instance and saves it to db
             FirestoreOptions firestoreOptions =
@@ -50,6 +50,7 @@ public class FireStoreHelper {
     // Checks if a file exits
     public boolean doesFileExist() {
         try {
+            System.out.println();
             // Gets the file
             ApiFuture<DocumentSnapshot> future = documentReference.get();
             DocumentSnapshot documentSnapshot = future.get(); // This will block until the result is available

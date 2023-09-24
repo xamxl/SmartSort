@@ -25,8 +25,8 @@ public class Location {
 
     // TODO: This and other max need to be checked.
     public void calculateMaxUnhappiness(Sort e) {
-        maxUnhappiness1 = new double[members.get(0).getAttributes().length];
-
+        maxUnhappiness1 = new double[e.getIndividuals()[0].getAttributes().length];
+        
         maxUnhappiness[2] = new double[e.getIndividuals()[0].getAttributes1().length];
         for (int i = 0; i < e.getIndividuals()[0].getAttributes1().length; i ++) {
             ArrayList<String> attributeOptions1 = e.getAttribute1Options(i);
