@@ -18,9 +18,10 @@ public class Sort {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
             boolean there = false;
-            for (String k : options)
+            for (String k : options) 
                 if (i.getAttributes()[w].equals(k))
                     there = true;
+
             if (! there)
                 options.add(i.getAttributes()[w]);
         }

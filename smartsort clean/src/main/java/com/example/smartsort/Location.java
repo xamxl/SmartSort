@@ -96,6 +96,7 @@ public class Location {
             unhappiness += weights[10][0] * MyUtility.interpolate(maxUnhappiness[0][0], Math.pow((minimum - members.size()) * 60, 2));
         if (members.size() != 0) {
             // TOOD: Why does this balancing not work instantly?
+            // TODO: Is calling getAttributes every time redundant?
             double uS;
             for (int i = 0; i < members.get(0).getAttributes().length; i++) {
                 uS = 0;
