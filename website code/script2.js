@@ -186,7 +186,7 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
 
     running = true;
 
-    fetch('http://localhost:8080/upload?type=random', { 
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/upload?type=random', { 
         method: 'POST', 
         body: formData
     })
@@ -300,7 +300,7 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
 
     running = true;
     
-    fetch('http://localhost:8080/upload?type=normal', {
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/upload?type=normal', {
         method: 'POST', 
         body: formData
     })

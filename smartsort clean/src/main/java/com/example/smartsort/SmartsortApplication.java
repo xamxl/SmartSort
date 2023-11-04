@@ -34,14 +34,14 @@ public class SmartsortApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/uploadTest-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/upload-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/uploadClean-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/createAccount-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/login-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/verifyLogin-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/signout-javaconfig").allowedOrigins("http://localhost:8888");
-                registry.addMapping("/deleteAccount-javaconfig").allowedOrigins("http://localhost:8888");
+				registry.addMapping("/uploadTest-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/upload-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/uploadClean-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/createAccount-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/login-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/verifyLogin-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/signout-javaconfig").allowedOrigins("https://smartsort.site");
+                registry.addMapping("/deleteAccount-javaconfig").allowedOrigins("https://smartsort.site");
 			}
 		};
 	}
@@ -51,13 +51,13 @@ public class SmartsortApplication {
 @RestController
 class FormDataController {
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @GetMapping("/uploadTest")
   public String testUpload() {
     return "Upload connected.";
   }
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/upload")
   public String handleFormUpload(@ModelAttribute SortInput sortInput, @RequestParam String type) {
 
@@ -195,7 +195,7 @@ class FormDataController {
   }
 
   // TODO: protect with account
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/uploadClean")
   public String handleFormUploadClean(@ModelAttribute CleanInput cleanInput) {
       
@@ -225,7 +225,7 @@ class FormDataController {
       return jsonString;
   }
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/createAccount")
   public String handleFormCreateAccount(@ModelAttribute CreateAccountInput createAccountInput) {
         String checks = AccountServices.checkUsernameAndPasswordCA(createAccountInput.getEmail(), createAccountInput.getPassword(), createAccountInput.getConfirmPassword());
@@ -235,7 +235,7 @@ class FormDataController {
         return "{\"text\":\"" + "Account created." + "\"}";
   }
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/login")
   public String handleFormLogin(@ModelAttribute LoginInput loginInput) {
         if (! AccountServices.checkUsernameAndPasswordL(loginInput.getEmail(), loginInput.getPassword()))
@@ -243,7 +243,7 @@ class FormDataController {
         return "{\"text\":\"" + AccountServices.login(loginInput.getEmail()) + "\"}";
   }
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/verifyLogin")
   public String handelVerifyLogin(@ModelAttribute VerifyLoginInput verifyLoginInput) {
         if (! AccountServices.verifyLogin(verifyLoginInput.getEmail(), verifyLoginInput.getKey()))
@@ -251,7 +251,7 @@ class FormDataController {
         return "{\"text\":\"VALID\"}";
   }
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/signout")
   public void handelSignout(@ModelAttribute SignoutInput signoutInput) {
         if (! AccountServices.verifyLogin(signoutInput.getEmail(), signoutInput.getKey()))
@@ -259,7 +259,7 @@ class FormDataController {
         AccountServices.signout(signoutInput.getEmail());
   }
 
-  @CrossOrigin(origins = "http://localhost:8888")
+  @CrossOrigin(origins = "https://smartsort.site")
   @PostMapping("/deleteAccount")
   public String handelDeleteAccount(@ModelAttribute DeleteAccountInput deleteAccountInput) {
         if (! AccountServices.verifyLogin(deleteAccountInput.getEmail(), deleteAccountInput.getKey()))

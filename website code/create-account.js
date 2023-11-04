@@ -65,7 +65,7 @@ document.getElementById('form-create-account').addEventListener('submit', functi
 
     running = true;
 
-    fetch('http://localhost:8080/createAccount', { 
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/createAccount', { 
         method: 'POST', 
         body: formData
     })
