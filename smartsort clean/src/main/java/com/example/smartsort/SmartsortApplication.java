@@ -186,8 +186,10 @@ class FormDataController {
       String jsonString = gson.toJson(result);
 
       if (type.equals("normal")) {
+          AccountFunctions.incrementSortCount(sortInput.getEmail(), 0);
           System.out.println("Sort Completed: title=" + sortInput.getString() + " iterations=" + sortInput.getNumber2() + " number of sorts=" + sortInput.getNumber3());
       } else {
+        AccountFunctions.incrementSortCount(sortInput.getEmail(), 1);
         System.out.println("Random Sort Completed: title=" + sortInput.getString() + " number of sorts=" + sortInput.getNumber3());
       }
 
