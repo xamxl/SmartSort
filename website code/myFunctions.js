@@ -13,7 +13,7 @@ async function isLoggedIn() {
     formData.append("key", getCookie("loginKey"));
 
     try {
-        const response = await fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/verifyLogin', {
+        const response = await fetch('http://localhost:8080/verifyLogin', {
             method: 'POST',
             body: formData
         });

@@ -47,7 +47,7 @@ document.getElementById('form-deleteAccount').addEventListener('submit', functio
 
     formData.append("key", getCookie("loginKey"));
 
-    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/deleteAccount', { 
+    fetch('http://localhost:8080/deleteAccount', { 
         method: 'POST', 
         body: formData
     })
