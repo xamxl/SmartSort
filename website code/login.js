@@ -19,6 +19,7 @@ window.onload = function() {
 
         // Get the current URL
         var url = new URL(window.location.href);
+        let searchParams = new URLSearchParams(url.search);
 
         // Check if 'ac=true' is at the end of the URL
         if (url.search.endsWith('ac=true')) {
@@ -30,12 +31,19 @@ window.onload = function() {
 
             // Redirect to the new URL without 'ac=true'
             window.history.replaceState({}, document.title, url.toString());
-        } else if (url.search.endsWith('prev=page2')) {
-            redirect = "page2.html";
-            url.searchParams.delete('prev');
+        } else if (searchParams.has('prev')) {
+            messages = [
+                "You must be logged in to run a sort.",
+                "You must be logged in to create a form."
+            ];
+
+            redirect = searchParams.get('prev') + ".html";
+            //url.searchParams.delete('prev');
 
             document.getElementsByName("errorText")[0].style.color = "red";
-            document.getElementsByName("errorText")[0].innerHTML = "You must be logged in to run a sort.";
+            console.log(searchParams.get('mes'));
+            document.getElementsByName("errorText")[0].innerHTML = messages[searchParams.get('mes')];
+            //url.searchParams.delete('mes');
             
             window.history.replaceState({}, document.title, url.toString());
         }

@@ -1,18 +1,69 @@
 let dropdownBefore = '<select name="';
 let dropdown = '" id="field-type" class="form-control mb-2">';
 
+let running = false;
+
 let elements = [];
 
 document.getElementById('form-form-creator').addEventListener('submit', function(e){
     e.preventDefault();
+
     var formData = new FormData(e.target);
     formData.append('elements', JSON.stringify(elements));
-    var data = {};
-    formData.forEach(function(value, key){
-        data[key] = value;
-    });
+    var data = { d: [], o: [], t: [] };
     
-    console.log(data);
+    formData.forEach(function(value, key){
+        if (key.startsWith('d')) {
+            data.d.push(value);
+        } else if (key.startsWith('o')) {
+            data.o.push(value);
+        } else if (key.startsWith('t')) {
+            data.t.push(value);
+        } else {
+            data[key] = value;
+        }
+    });
+
+    if (data.formName == "") {
+        document.querySelector("label[name='formNameLabel']").style.color = "red";
+        document.querySelector("label[name='formNameLabel']").textContent = "Form name: Field Required";
+        return;
+    } else {
+        document.querySelector("label[name='formNameLabel']").style.color = "black";
+        document.querySelector("label[name='formNameLabel']").textContent = "Form name";
+    }
+    
+    if (!getCookie("loginKey")) {
+        window.location.href = "login.html?prev=formCreator&mes=1";
+        return;
+    }
+
+    var formData1 = new FormData();
+    Object.keys(data).forEach(key => {
+        if (Array.isArray(data[key])) {
+            // Convert array to JSON string
+            formData1.append(key, JSON.stringify(data[key]));
+        } else {
+            // Append non-array values directly
+            formData1.append(key, data[key]);
+        }
+    });
+
+    formData1.append("email", getCookie("email"));
+    formData1.append("key", getCookie("loginKey"));
+
+    document.getElementsByName("create")[0].value = "Working ...";
+
+    if (running) {
+        document.getElementsByName("errorText")[0].innerHTML = "Already creating your form.";
+        return;
+    }
+
+    document.getElementsByName("errorText")[0].innerHTML = "";
+
+    running = true;
+
+    // send to server
 });
 
 window.onload = function() {
