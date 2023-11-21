@@ -134,7 +134,7 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
 
     console.log(!getCookie("loginKey"));
     if (!getCookie("loginKey")) {
-        window.location.href = "login.html?prev=page2&mes=0";
+        window.location.href = "login.html?prev=page2&mes=You_must_be_logged_in_to_run_a_sort.";
         return;
     }
 
@@ -197,7 +197,7 @@ document.getElementsByName('runRandomTag')[0].addEventListener('click', function
         }
         response.json().then((result) => {
             if (result.hasOwnProperty('text')) {
-                window.location.href = "login.html?prev=page2&mes=0";
+                window.location.href = "login.html?prev=page2&mes=You_must_be_logged_in_to_run_a_sort.";
             } else {
                 window.location.href = "output.html";
                 localStorage.setItem('sortResult', JSON.stringify(result));
@@ -249,7 +249,7 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
     saveForm("page2.html").then(() => {
 
     if (!getCookie("loginKey")) {
-        window.location.href = "login.html?prev=page2&mes=0";
+        window.location.href = "login.html?prev=page2&mes=You_must_be_logged_in_to_run_a_sort.";
         return;
     }
 
@@ -311,7 +311,7 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
         }
         response.json().then((result) => {
             if (result.hasOwnProperty('text')) {
-                window.location.href = "login.html?prev=page2&mes=0";
+                window.location.href = "login.html?prev=page2&mes=You_must_be_logged_in_to_run_a_sort.";
             } else {
                 localStorage.setItem('sortResult', JSON.stringify(result));
                 window.location.href = "output.html";

@@ -32,18 +32,10 @@ window.onload = function() {
             // Redirect to the new URL without 'ac=true'
             window.history.replaceState({}, document.title, url.toString());
         } else if (searchParams.has('prev')) {
-            messages = [
-                "You must be logged in to run a sort.",
-                "You must be logged in to create a form."
-            ];
-
             redirect = searchParams.get('prev') + ".html";
-            //url.searchParams.delete('prev');
 
             document.getElementsByName("errorText")[0].style.color = "red";
-            console.log(searchParams.get('mes'));
-            document.getElementsByName("errorText")[0].innerHTML = messages[searchParams.get('mes')];
-            //url.searchParams.delete('mes');
+            document.getElementsByName("errorText")[0].innerHTML = searchParams.get('mes').replace(/_/g, " ");
             
             window.history.replaceState({}, document.title, url.toString());
         }

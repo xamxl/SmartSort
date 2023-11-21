@@ -34,7 +34,7 @@ document.getElementById('form-form-creator').addEventListener('submit', function
     }
     
     if (!getCookie("loginKey")) {
-        window.location.href = "login.html?prev=formCreator&mes=1";
+        window.location.href = "login.html?prev=formCreator&mes=You_must_be_logged_in_to_create_a_form.";
         return;
     }
 
@@ -59,11 +59,36 @@ document.getElementById('form-form-creator').addEventListener('submit', function
         return;
     }
 
+    // TODO: Save results so that login does not remove progress
+
     document.getElementsByName("errorText")[0].innerHTML = "";
 
     running = true;
 
-    // send to server
+    fetch('LINK', {
+        method: 'POST', 
+        body: formData
+    })
+    .then(function(response) {
+        if (!response.ok) {
+            document.getElementsByName("errorText")[0].innerHTML = "Creating your form was not successful. Please check inputs.";
+            throw new Error('HTTP error, status = ' + response.status);
+        }
+        response.json().then((result) => {
+            if (result.hasOwnProperty('text')) {
+                window.location.href = "login.html?prev=formCreator&mes=You_must_be_logged_in_to_create_a_form.";
+            } else {
+                //localStorage.setItem('sortResult', JSON.stringify(result));
+                //window.location.href = "output.html";
+                //results
+            }
+        });
+    })
+    .catch(function(error) {
+        document.getElementsByName("create")[0].value = "Create Form >";
+        running = false;
+        console.error('Request failed:', error.message);
+    });
 });
 
 window.onload = function() {
