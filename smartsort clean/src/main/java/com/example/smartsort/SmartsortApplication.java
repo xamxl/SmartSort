@@ -42,6 +42,7 @@ public class SmartsortApplication {
                 registry.addMapping("/verifyLogin-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/signout-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/deleteAccount-javaconfig").allowedOrigins("http://localhost:8888");
+                registry.addMapping("/createForm-javaconfig").allowedOrigins("http://localhost:8888");
 			}
 		};
 	}
@@ -265,9 +266,20 @@ class FormDataController {
   @PostMapping("/deleteAccount")
   public String handelDeleteAccount(@ModelAttribute DeleteAccountInput deleteAccountInput) {
         if (! AccountServices.verifyLogin(deleteAccountInput.getEmail(), deleteAccountInput.getKey()))
-            return "{\"text\":\"INVALID\"}";;
+            return "{\"text\":\"INVALID\"}";
         AccountServices.deleteAccount(deleteAccountInput.getEmail());
         return "{\"text\":\"VALID\"}";
+  }
+
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/createForm")
+  public String handelCreateForm(@ModelAttribute CreateFormInput createFormInput) {
+        if (! AccountServices.verifyLogin(createFormInput.getEmail(), createFormInput.getKey()))
+            return "{\"text\":\"INVALID\"}";
+        if(Forms.doesFormExist(createFormInput.getEmail(), createFormInput.getFormName()))
+            return "{\"text\":\"You have already created a form with that name.\"}";
+        Forms.createForm(createFormInput.getEmail(), createFormInput.getFormName(), createFormInput.getSortTypes(), createFormInput.getOptions(), createFormInput.getTexts(), createFormInput.getIdInstruct(), createFormInput.getInputTypes());
+        return "{\"text\":\"Form created.\"}";
   }
 
 }

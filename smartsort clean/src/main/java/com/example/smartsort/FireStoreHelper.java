@@ -46,11 +46,11 @@ public class FireStoreHelper {
      * Sets the document reference to a document, which can be nested.
      * The path should alternate between collection names and document IDs
      */
+    // TODO: Not working
     public void setFileReference(String... path) {
         if (path.length < 2 || path.length % 2 != 0) {
             throw new IllegalArgumentException("Invalid path. Path must be of even length.");
         }
-
         documentReference = db.collection(path[0]).document(path[1]);
         for (int i = 2; i < path.length; i += 2) {
             documentReference = documentReference.collection(path[i]).document(path[i + 1]);
@@ -60,7 +60,6 @@ public class FireStoreHelper {
     // Checks if a file exits
     public boolean doesFileExist() {
         try {
-            System.out.println();
             // Gets the file
             ApiFuture<DocumentSnapshot> future = documentReference.get();
             DocumentSnapshot documentSnapshot = future.get(); // This will block until the result is available

@@ -63,28 +63,32 @@ document.getElementById('form-form-creator').addEventListener('submit', function
 
     document.getElementsByName("errorText")[0].innerHTML = "";
 
-    for (let [key, value] of formData1) {
-        console.log(key, value);
-    }
-
     running = true;
 
-    fetch('LINK', {
+    fetch('http://localhost:8080/createForm', {
         method: 'POST', 
         body: formData1
     })
     .then(function(response) {
+        document.getElementsByName("create")[0].value = "Create Form >";
+        running = false;
         if (!response.ok) {
+            document.getElementsByName("errorText")[0].style.color = "red";
             document.getElementsByName("errorText")[0].innerHTML = "Creating your form was not successful. Please check inputs.";
             throw new Error('HTTP error, status = ' + response.status);
         }
         response.json().then((result) => {
-            if (result.hasOwnProperty('text')) {
+            if (result.text == "INVALID") {
                 window.location.href = "login.html?prev=formCreator&mes=You_must_be_logged_in_to_create_a_form.";
+            } else if (result.text == "Form created.") {
+                document.getElementsByName("errorText")[0].style.color = "green";
+                document.getElementsByName("errorText")[0].innerHTML = result.text;
+                document.getElementById('fields-container').innerHTML = "";
+                document.querySelector("input[name='formName']").value = "";
+                document.querySelector("input[name='idInstruct']").value = "";
             } else {
-                //localStorage.setItem('sortResult', JSON.stringify(result));
-                //window.location.href = "output.html";
-                //results
+                document.getElementsByName("errorText")[0].style.color = "red";
+                document.getElementsByName("errorText")[0].innerHTML = result.text;
             }
         });
     })

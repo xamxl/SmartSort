@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Forms {
 
     // Returns the file reference for a form's document
-    public FireStoreHelper getFormReference (String user, String formName) {
+    public static FireStoreHelper getFormReference (String user, String formName) {
         // Create an instance of FireStoreHelper and set the document reference
         FireStoreHelper fSH = new FireStoreHelper();
         fSH.setFileReference("users", user, "forms", formName);
@@ -13,7 +13,7 @@ public class Forms {
     }
     
     // Returns true if the form exists, false otherwise
-    public boolean doesFormExist(String user, String formName) {
+    public static boolean doesFormExist(String user, String formName) {
         // Gets the reference to the form's document
         FireStoreHelper fSH = getFormReference(user, formName);
         // Checks if the file exists
@@ -21,7 +21,7 @@ public class Forms {
     }
 
     // Creates a new form
-    public void createForm(String user, String formName, String[] sortTypes, String[] options, String[] texts, String idInstruct, String[] inputTypes) {
+    public static void createForm(String user, String formName, String[] sortTypes, String[] options, String[] texts, String idInstruct, String[] inputTypes) {
         // Gets the reference ot the form's document
         FireStoreHelper fSH = getFormReference(user, formName);
         // Collects the ids
@@ -41,6 +41,7 @@ public class Forms {
         values.add(idInstruct);
         values.add(inputTypes);
         // Creates and writes to the file
+        // TODO: Not adding lists to file
         fSH.writeToFile(ids, values);
     }
 

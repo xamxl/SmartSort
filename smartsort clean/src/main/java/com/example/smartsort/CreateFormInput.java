@@ -32,7 +32,7 @@ public class CreateFormInput {
         return formName;
     }
 
-    public void setForName(String formName) {
+    public void setFormName(String formName) {
         this.formName = formName;
     }
 
