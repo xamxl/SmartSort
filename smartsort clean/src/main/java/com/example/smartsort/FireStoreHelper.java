@@ -42,9 +42,19 @@ public class FireStoreHelper {
         } catch (Exception e) {}
     }
 
-    // Sets the document reference to a new file
-    public void setFileReference(String collectionID, String fileID) {
-        documentReference = db.collection(collectionID).document(fileID);
+    /*
+     * Sets the document reference to a document, which can be nested.
+     * The path should alternate between collection names and document IDs
+     */
+    public void setFileReference(String... path) {
+        if (path.length < 2 || path.length % 2 != 0) {
+            throw new IllegalArgumentException("Invalid path. Path must be of even length.");
+        }
+
+        documentReference = db.collection(path[0]).document(path[1]);
+        for (int i = 2; i < path.length; i += 2) {
+            documentReference = documentReference.collection(path[i]).document(path[i + 1]);
+        }
     }
 
     // Checks if a file exits

@@ -63,11 +63,15 @@ document.getElementById('form-form-creator').addEventListener('submit', function
 
     document.getElementsByName("errorText")[0].innerHTML = "";
 
+    for (let [key, value] of formData1) {
+        console.log(key, value);
+    }
+
     running = true;
 
     fetch('LINK', {
         method: 'POST', 
-        body: formData
+        body: formData1
     })
     .then(function(response) {
         if (!response.ok) {
