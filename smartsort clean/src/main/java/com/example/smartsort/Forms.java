@@ -45,4 +45,22 @@ public class Forms {
         fSH.writeToFile(ids, values);
     }
 
+    // Returns all the names of the user's forms
+    // TODO: Make sure this works if the user has no forms or no collection of forms
+    public static String[] getUserFormNames(String user) {
+        // Creates an instance of FireStoreHelper & sets it to the user's form collection
+        FireStoreHelper fSH = new FireStoreHelper();
+        fSH.setCollectionReference("users", user, "forms");
+        // Gets and returns the names of all the user's forms
+        return fSH.getFileNames();
+    }
+
+    // Deletes a form
+    public static void deleteForm(String user, String formName) {
+        // Gets a reference to the form
+        FireStoreHelper fSH = getFormReference(user, formName);
+        // Deletes the file
+        fSH.deleteFile();
+    }
+
 }

@@ -16,6 +16,8 @@ public class FireStoreHelper {
 
     // The current document reference
     DocumentReference documentReference;
+    // The current collection reference
+    CollectionReference collectionReference;
 
     // Gets an instance of the data base
     public FireStoreHelper() {
@@ -46,7 +48,6 @@ public class FireStoreHelper {
      * Sets the document reference to a document, which can be nested.
      * The path should alternate between collection names and document IDs
      */
-    // TODO: Not working
     public void setFileReference(String... path) {
         if (path.length < 2 || path.length % 2 != 0) {
             throw new IllegalArgumentException("Invalid path. Path must be of even length.");
@@ -54,6 +55,20 @@ public class FireStoreHelper {
         documentReference = db.collection(path[0]).document(path[1]);
         for (int i = 2; i < path.length; i += 2) {
             documentReference = documentReference.collection(path[i]).document(path[i + 1]);
+        }
+    }
+
+    /*
+    * Sets the collection reference, which can be a top-level collection or nested within documents.
+    * The path should alternate between collection names and document IDs, ending with a collection name.
+    */
+    public void setCollectionReference(String... path) {
+        if (path.length < 1 || path.length % 2 == 0) {
+            throw new IllegalArgumentException("Invalid path. Path must end with a collection name.");
+        }
+        collectionReference = db.collection(path[0]);
+        for (int i = 1; i < path.length; i += 2) {
+            collectionReference = collectionReference.document(path[i]).collection(path[i + 1]);
         }
     }
 
@@ -107,6 +122,17 @@ public class FireStoreHelper {
             // Confirm the deletion
             future.get();
         } catch (InterruptedException | ExecutionException e) {}
-    }    
+    }   
+
+    // Returns the names of all files in the current collection
+    public String[] getFileNames() {
+        List<String> fileNamesList = new ArrayList<>();
+        // Gets the document id's and iterates over them
+        for (DocumentReference docRef : collectionReference.listDocuments()) {
+            fileNamesList.add(docRef.getId());
+        }
+        // Convert the list to an array
+        return fileNamesList.toArray(new String[0]);
+    }
     
 }

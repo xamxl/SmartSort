@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.*;
 
@@ -43,6 +44,8 @@ public class SmartsortApplication {
                 registry.addMapping("/signout-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/deleteAccount-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/createForm-javaconfig").allowedOrigins("http://localhost:8888");
+                registry.addMapping("/getMyForms-javaconfig").allowedOrigins("http://localhost:8888");
+                registry.addMapping("/deleteForm-javaconfig").allowedOrigins("http://localhost:8888");
 			}
 		};
 	}
@@ -280,6 +283,24 @@ class FormDataController {
             return "{\"text\":\"You have already created a form with that name.\"}";
         Forms.createForm(createFormInput.getEmail(), createFormInput.getFormName(), createFormInput.getSortTypes(), createFormInput.getOptions(), createFormInput.getTexts(), createFormInput.getIdInstruct(), createFormInput.getInputTypes());
         return "{\"text\":\"Form created.\"}";
+  }
+
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/getMyForms")
+  public String handelGetMyForms(@ModelAttribute GetMyFormsInput getMyFormsInput) {
+        if (! AccountServices.verifyLogin(getMyFormsInput.getEmail(), getMyFormsInput.getKey()))
+            return "{\"text\":\"INVALID\"}";
+        String[] myForms = Forms.getUserFormNames(getMyFormsInput.getEmail());
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("myForms", gson.toJsonTree(myForms));
+        return jsonObject.toString();
+  }
+
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/deleteForm")
+  public String handelDeleteForm(@ModelAttribute DeleteFormInput deleteFormInput) {
+        
   }
 
 }

@@ -2,7 +2,7 @@ fetch('header.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('header').innerHTML = data;
-    ["/index.html", "/page1.html", "/page2.html", "/output.html", "/clean.html", "/formCreator.html", "/login.html", "/create-account.html", "/signout.html", "/myAccount.html"].forEach((page) => {
+    ["/index.html", "/page1.html", "/page2.html", "/output.html", "/clean.html", "/formCreator.html", "/login.html", "/create-account.html", "/signout.html", "/myAccount.html", "/myForms.html"].forEach((page) => {
       document.querySelectorAll(`a[href="${page}"]`).forEach((linkElement) => {
         linkElement.addEventListener('click', async function(event) {
           event.preventDefault();
