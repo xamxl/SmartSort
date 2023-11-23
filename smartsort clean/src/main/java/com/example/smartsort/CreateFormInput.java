@@ -48,36 +48,36 @@ public class CreateFormInput {
         return sortTypes;
     }
 
-    public void setSortTypes(String d) {
+    public void setSortTypes(String sortTypes) {
         Gson gson = new Gson();
-        sortTypes = gson.fromJson(d, String[].class);
+        this.sortTypes = gson.fromJson(sortTypes, String[].class);
     }
 
     public String[] getOptions() {
         return options;
     }
 
-    public void setOptions(String o) {
+    public void setOptions(String options) {
         Gson gson = new Gson();
-        options = gson.fromJson(o, String[].class);
+        this.options = gson.fromJson(options, String[].class);
     }
 
     public String[] getTexts() {
         return texts;
     }
 
-    public void setTexts(String t) {
+    public void setTexts(String texts) {
         Gson gson = new Gson();
-        texts = gson.fromJson(t, String[].class);
+        this.texts = gson.fromJson(texts, String[].class);
     }
 
     public String[] getInputTypes() {
         return inputTypes;
     }
 
-    public void setInputTypes(String elements) {
+    public void setInputTypes(String inputTypes) {
         Gson gson = new Gson();
-        inputTypes = gson.fromJson(elements, String[].class);
+        this.inputTypes = gson.fromJson(inputTypes, String[].class);
     }
 
 }

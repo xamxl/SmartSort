@@ -1,6 +1,7 @@
 package com.example.smartsort;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Forms {
 
@@ -35,13 +36,12 @@ public class Forms {
         // Collects the values
         ArrayList<Object> values = new ArrayList<>();
         values.add(formName);
-        values.add(sortTypes);
-        values.add(options);
-        values.add(texts);
+        values.add(new ArrayList<>(Arrays.asList(sortTypes)));
+        values.add(new ArrayList<>(Arrays.asList(options)));
+        values.add(new ArrayList<>(Arrays.asList(texts)));
         values.add(idInstruct);
-        values.add(inputTypes);
+        values.add(new ArrayList<>(Arrays.asList(inputTypes)));
         // Creates and writes to the file
-        // TODO: Not adding lists to file
         fSH.writeToFile(ids, values);
     }
 

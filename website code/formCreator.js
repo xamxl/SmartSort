@@ -9,16 +9,16 @@ document.getElementById('form-form-creator').addEventListener('submit', function
     e.preventDefault();
 
     var formData = new FormData(e.target);
-    formData.append('elements', JSON.stringify(elements));
-    var data = { d: [], o: [], t: [] };
+    formData.append('inputTypes', JSON.stringify(elements));
+    var data = { sortTypes: [], options: [], texts: [] };
     
     formData.forEach(function(value, key){
         if (key.startsWith('d')) {
-            data.d.push(value);
+            data.sortTypes.push(value);
         } else if (key.startsWith('o')) {
-            data.o.push(value);
+            data.options.push(value);
         } else if (key.startsWith('t')) {
-            data.t.push(value);
+            data.texts.push(value);
         } else {
             data[key] = value;
         }
@@ -84,6 +84,7 @@ document.getElementById('form-form-creator').addEventListener('submit', function
                 document.getElementsByName("errorText")[0].style.color = "green";
                 document.getElementsByName("errorText")[0].innerHTML = result.text;
                 document.getElementById('fields-container').innerHTML = "";
+                elements = [];
                 document.querySelector("input[name='formName']").value = "";
                 document.querySelector("input[name='idInstruct']").value = "";
             } else {
