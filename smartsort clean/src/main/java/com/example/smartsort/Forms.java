@@ -50,9 +50,7 @@ public class Forms {
     public static String[] getUserFormNames(String user) {
         // Creates an instance of FireStoreHelper & sets it to the user's form collection
         FireStoreHelper fSH = new FireStoreHelper();
-        System.out.println("Hello1.5");
         fSH.setCollectionReference("users", user, "forms");
-        System.out.println("Hello1.75");
         // Gets and returns the names of all the user's forms
         return fSH.getFileNames();
     }

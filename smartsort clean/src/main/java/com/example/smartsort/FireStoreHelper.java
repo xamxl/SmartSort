@@ -128,11 +128,9 @@ public class FireStoreHelper {
     public String[] getFileNames() {
         List<String> fileNamesList = new ArrayList<>();
         // Gets the document id's and iterates over them
-        System.out.println("Hello1.79");
         for (DocumentReference docRef : collectionReference.listDocuments()) {
             fileNamesList.add(docRef.getId());
         }
-        System.out.println("Hello1.8");
         // Convert the list to an array
         return fileNamesList.toArray(new String[0]);
     }

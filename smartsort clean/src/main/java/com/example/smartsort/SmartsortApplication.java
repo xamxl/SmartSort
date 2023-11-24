@@ -288,25 +288,22 @@ class FormDataController {
   @CrossOrigin(origins = "http://localhost:8888")
   @PostMapping("/getMyForms")
   public String handelGetMyForms(@ModelAttribute GetMyFormsInput getMyFormsInput) {
-        System.out.println("HELLLO!!!!!");
         if (! AccountServices.verifyLogin(getMyFormsInput.getEmail(), getMyFormsInput.getKey()))
             return "{\"text\":\"INVALID\"}";
-        System.out.println("HELLLO!!!!!1");
         String[] myForms = Forms.getUserFormNames(getMyFormsInput.getEmail());
-        System.out.println("HELLLO!!!!!2");
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("myForms", gson.toJsonTree(myForms));
         return jsonObject.toString();
   }
 
-//   @CrossOrigin(origins = "http://localhost:8888")
-//   @PostMapping("/deleteForm")
-//   public String handelDeleteForm(@ModelAttribute DeleteFormInput deleteFormInput) {
-//         if (! AccountServices.verifyLogin(deleteFormInput.getEmail(), deleteFormInput.getKey()))
-//             return "{\"text\":\"INVALID\"}";
-//         Forms.deleteForm(deleteFormInput.getEmail(), deleteFormInput.getFormName());
-//         return "{\"text\":\"VALID\"}";
-//   }
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/deleteForm")
+  public String handelDeleteForm(@ModelAttribute DeleteFormInput deleteFormInput) {
+        if (! AccountServices.verifyLogin(deleteFormInput.getEmail(), deleteFormInput.getKey()))
+            return "{\"text\":\"INVALID\"}";
+        Forms.deleteForm(deleteFormInput.getEmail(), deleteFormInput.getFormName());
+        return "{}";
+  }
 
 }
