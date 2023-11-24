@@ -50,8 +50,6 @@ window.onload = function() {
                 });
             })
             .catch(function(error) {
-                document.getElementsByName("runTag")[0].value = "Run >";
-                running = false;
                 console.error('Request failed:', error.message);
             });
         }
