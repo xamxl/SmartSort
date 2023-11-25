@@ -112,22 +112,33 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
                 console.error('Request failed:', error.message);
             });
         }
+    } else if (event.target.classList.contains('btn-primary')) {
+        const btn = event.target;
+        const userEmail = encodeURIComponent(getCookie("email"));
+        const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
+        const text = `localhost:8888//fillOutForm.html?user=${userEmail}&formName=${formName}`;
+        copyToClipboard(text);
+        btn.textContent = "Link Copied";
     }
 });
 
 // Reset the delete button when clicking outside
 document.addEventListener('click', function(event) {
-    if (!event.target.classList.contains('delete-btn')) {
-        const deleteButtons = document.querySelectorAll('.delete-btn.clicked-once');
-        if (fetched) {
-            document.getElementsByName("errorText")[0].innerHTML = "";
-        }
-        deleteButtons.forEach(btn => {
-            if (btn.textContent != 'Deleting ...') {
-                resetDeleteButton(btn);
-            }
-        });
+    const deleteButtons = document.querySelectorAll('.delete-btn.clicked-once');
+    if (fetched) {
+        document.getElementsByName("errorText")[0].innerHTML = "";
     }
+    deleteButtons.forEach(btn => {
+        if (btn.textContent != 'Deleting ...' && event.target != btn) {
+            resetDeleteButton(btn);
+        }
+    });
+    const copyLinkButtons = document.querySelectorAll('.btn-primary');
+    copyLinkButtons.forEach(btn => {
+        if (event.target != btn) {
+            btn.textContent = "Copy Link";
+        }
+    });
 });
 
 function resetDeleteButton(btn) {
@@ -135,3 +146,7 @@ function resetDeleteButton(btn) {
     btn.classList.remove('clicked-once');
     btn.textContent = 'Delete';
 }
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {}).catch(err => {});
+  }

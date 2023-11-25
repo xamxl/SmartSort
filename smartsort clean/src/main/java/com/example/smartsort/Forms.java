@@ -2,6 +2,7 @@ package com.example.smartsort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class Forms {
 
@@ -63,4 +64,24 @@ public class Forms {
         fSH.deleteFile();
     }
 
+    // Returns the contents of a form
+    public static Map<String, Object> getForm(String user, String formName) {
+        // Gets the reference to the form's document
+        FireStoreHelper fSH = getFormReference(user, formName);
+        // Reads the file and returns its content
+        return fSH.readFile();
+    }
+
+    // Writes a submission to a form
+    public static void writeSubmission(String user, String formName, ArrayList<String> submission) {
+        // Gets the reference to the submission's new file
+        FireStoreHelper fSH = new FireStoreHelper();
+        fSH.setFileReference("users", user, "forms", formName, "submissions", submission.get(0));
+        // Creates a new submission file and writes to it
+        ArrayList<Object> data = new ArrayList<>();
+        data.add(submission);
+        ArrayList<String> key = new ArrayList<>();
+        key.add("data");
+        fSH.writeToFile(key, data);
+    }
 }
