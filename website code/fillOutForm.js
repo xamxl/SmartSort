@@ -32,6 +32,7 @@ window.onload = function() {
                 
                 const formContents = document.getElementsByName('formContents')[0];
                 
+                let optionIndex = 0;
                 result.inputTypes.forEach((type, index) => {
                     const div = document.createElement('div');
                     div.className = 'form-group';
@@ -50,7 +51,7 @@ window.onload = function() {
                             input.style.flexDirection = 'column';
                             input.style.alignItems = 'flex-start';
 
-                            result.options[index].split(',').forEach((optionValue, i) => {
+                            result.options[optionIndex].split(',').forEach((optionValue, i) => {
                                 const wrapper = document.createElement('div');
                                 wrapper.style.margin = '8px 0';
                                 wrapper.style.display = 'flex';
@@ -72,6 +73,7 @@ window.onload = function() {
 
                                 input.appendChild(wrapper);
                             });
+                            optionIndex++;
                             break;
                         case 'd':
                             input = document.createElement('select');
