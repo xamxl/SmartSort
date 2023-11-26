@@ -160,12 +160,16 @@ document.getElementsByName('formSubmit')[0].addEventListener('click', function(e
         }
         response.json().then((result) => {
             document.getElementsByName("errorText")[0].innerHTML = "";
-            // TODO: make different error for not filling out and not having right identifier
             if (result.hasOwnProperty('text')) {
-                document.getElementsByName("errorText")[0].style.color = "red";
-                document.getElementsByName("errorText")[0].innerHTML = "Submitting your form was not successful. You identifier has already been used.";
-                document.getElementsByName("idLabel")[0].innerHTML = "This identification has already been used : " + storage;
-                document.getElementsByName("idLabel")[0].style.color = "red";
+                if (result.text == "INVALID_IDENTIFIER") {
+                    document.getElementsByName("errorText")[0].style.color = "red";
+                    document.getElementsByName("errorText")[0].innerHTML = "Submitting your form was not successful. You identifier has already been used.";
+                    document.getElementsByName("idLabel")[0].innerHTML = "This identification has already been used : " + storage;
+                    document.getElementsByName("idLabel")[0].style.color = "red";
+                } else {
+                    document.getElementsByName("errorText")[0].style.color = "red";
+                    document.getElementsByName("errorText")[0].innerHTML = "Submitting your form was not successful. All fields must be filled in.";
+                }
             } else {
                 document.getElementsByName("errorText")[0].style.color = "green";
                 document.getElementsByName("errorText")[0].innerHTML = "Your form has been successfully submitted.";
