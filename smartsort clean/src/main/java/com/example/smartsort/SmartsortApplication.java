@@ -47,6 +47,7 @@ public class SmartsortApplication {
                 registry.addMapping("/getMyForms-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/deleteForm-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/getForm-javaconfig").allowedOrigins("http://localhost:8888");
+                registry.addMapping("/submitForm-javaconfig").allowedOrigins("http://localhost:8888");
 			}
 		};
 	}
@@ -315,6 +316,17 @@ class FormDataController {
         Map<String, Object> formData = Forms.getForm(getFormInput.getEmail(), getFormInput.getFormName());
         Gson gson = new Gson();
         return gson.toJson(formData);
+  }
+
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/submitForm")
+  public String handelSubmitForm(@ModelAttribute SubmitFormInput submitFormInput) {
+    if (! Forms.validIdentifierAndForm(submitFormInput.getEmail(), submitFormInput.getFormName(), submitFormInput.getSubmissions()))
+        return "{\"text\":\"INVALID_IDENTIFIER\"}";
+    if (! Forms.validResponse(submitFormInput.getEmail(), submitFormInput.getFormName(), submitFormInput.getSubmissions()))
+        return "{\"text\":\"INVALID_RESPONSE\"}";
+    Forms.writeSubmission(submitFormInput.getEmail(), submitFormInput.getFormName(), submitFormInput.getSubmissions());
+    return "{}";
   }
 
 }

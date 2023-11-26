@@ -3,6 +3,7 @@ package com.example.smartsort;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.List;
 
 public class Forms {
 
@@ -83,5 +84,33 @@ public class Forms {
         ArrayList<String> key = new ArrayList<>();
         key.add("data");
         fSH.writeToFile(key, data);
+    }
+
+    // Returns true if a response contains a unique name & refers to a form that exists
+    public static boolean validIdentifierAndForm(String user, String formName, ArrayList<String> submission) {
+        // Returns false if the id is empty
+        if (submission.get(0).length() == 0)
+            return false;
+        // Selects the form
+        FireStoreHelper fSH = new FireStoreHelper();
+        fSH.setFileReference("users", user, "forms", formName);
+        // Returns false if the form does not exist
+        if (! fSH.doesFileExist())
+            return false;
+        // Selects the non existent response
+        fSH.setFileReference("users", user, "forms", formName, "submissions", submission.get(0));
+        // Returns false if the name has already been used
+        return ! fSH.doesFileExist();
+    }
+
+    // Returns true if a response if properly formatted
+    public static boolean validResponse(String user, String formName, ArrayList<String> submission) {
+        // Selects the form
+        FireStoreHelper fSH = new FireStoreHelper();
+        fSH.setFileReference("users", user, "forms", formName);
+        // Gets the length of the form
+        int formLength = ((List<?>) fSH.readFile().get("inputTypes")).size();
+        // Returns true if the result is the right length, false otherwise
+        return (formLength + 1) == submission.size();
     }
 }

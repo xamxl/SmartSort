@@ -1,3 +1,6 @@
+let storage = "";
+let running = false;
+
 window.onload = function() {
     // Creating the formData and appending the values
     var formData = new FormData();
@@ -25,6 +28,7 @@ window.onload = function() {
                 document.getElementsByName("formSubmit")[0].style.display = "block";
                 document.getElementsByName("id")[0].style.display = "block";
                 document.getElementsByName("idLabel")[0].innerHTML = result.idInstruct;
+                storage = result.idInstruct;
                 
                 const formContents = document.getElementsByName('formContents')[0];
                 
@@ -89,8 +93,6 @@ window.onload = function() {
                     div.appendChild(input);
                     formContents.appendChild(div);
                 });
-                
-                
             }
         });
     })
@@ -101,6 +103,7 @@ window.onload = function() {
 
 document.getElementsByName('formSubmit')[0].addEventListener('click', function(event) {
     event.preventDefault();
+    document.getElementsByName("errorText")[0].innerHTML = "";
 
     var formData = new FormData();
 
@@ -117,11 +120,62 @@ document.getElementsByName('formSubmit')[0].addEventListener('click', function(e
         }
     });
 
-    formData.append("data", values);
+    // Convert values array to JSON string
+    const jsonString = JSON.stringify(values);
+
+    // Append the JSON string to formData
+    formData.append("submissions", jsonString);
     formData.append("email", getQueryParam("user"));
     formData.append("formName", getQueryParam("formName"));
 
+    if (running) {
+        document.getElementsByName("errorText")[0].style.color = "red";
+        document.getElementsByName("errorText")[0].innerHTML = "Already submitting your form.";
+        return;
+    }
+
     // Send to the server & make sure the name has not been used before
+    if (values[0] == "") {
+        document.getElementsByName("idLabel")[0].innerHTML = "You must include identification : " + storage;
+        document.getElementsByName("idLabel")[0].style.color = "red";
+        return;
+    } else {
+        document.getElementsByName("idLabel")[0].innerHTML = storage;
+        document.getElementsByName("idLabel")[0].style.color = "black";
+    }
+
+    running = true;
+    document.getElementsByName("formSubmit")[0].value = "Submitting ...";
+    fetch('http://localhost:8080/submitForm', {
+                method: 'POST', 
+                body: formData
+    })
+    .then(function(response) {
+        running = false;
+        document.getElementsByName("formSubmit")[0].value = "Submit";
+        if (!response.ok) {
+            document.getElementsByName("errorText")[0].style.color = "red";
+            document.getElementsByName("errorText")[0].innerHTML = "Submitting your form was not successful.";
+            throw new Error('HTTP error, status = ' + response.status);
+        }
+        response.json().then((result) => {
+            document.getElementsByName("errorText")[0].innerHTML = "";
+            // TODO: make different error for not filling out and not having right identifier
+            if (result.hasOwnProperty('text')) {
+                document.getElementsByName("errorText")[0].style.color = "red";
+                document.getElementsByName("errorText")[0].innerHTML = "Submitting your form was not successful. You identifier has already been used.";
+                document.getElementsByName("idLabel")[0].innerHTML = "This identification has already been used : " + storage;
+                document.getElementsByName("idLabel")[0].style.color = "red";
+            } else {
+                document.getElementsByName("errorText")[0].style.color = "green";
+                document.getElementsByName("errorText")[0].innerHTML = "Your form has been successfully submitted.";
+                document.getElementById('form-fill-Out-Form').reset();
+            }
+        });
+    })
+    .catch(function(error) {
+        console.error('Request failed:', error.message);
+    });
 });
 
 // Function to get the value of a query parameter by name
