@@ -13,20 +13,18 @@
     <script src="header.js"></script>
 
     <div class="container mt-5">
-        <h1 class="text-center"></h1>
+        <h1 class="text-center" style="display: none;"></h1>
         <p name="errorText"></p>
         <p name="aLink" class="mt-3"  style="display: none;">You are not logged in. <a href="login.html">Login here</a> or <a href="create-account.html">Create an account here</a>.</p>
-        <br>
-        <div class="table-responsive">
-            <table class="table" id="submissionsTable">
-                <thead>
-                    <tr>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        <div id="tableDiv" class="mt-5">
+            <div class="table-responsive">
+                <table style="display: none;" class="table table-hover table-striped" id="submissionsTable">
+                    <thead class="thead-dark"></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
+        <br>
     </div>
 
     <footer class="footer mt-auto py-3 bg-light text-center">

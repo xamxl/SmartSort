@@ -82,3 +82,13 @@ async function saveForm(form) {
         localStorage.setItem('page2Data', JSON.stringify(data));
     }
 }
+
+// Function to get the value of a query parameter by name
+function getQueryParam(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+    const result = regex.exec(url);
+    if (!result) return null;
+    if (!result[2]) return '';
+    return decodeURIComponent(result[2].replace(/\+/g, " "));
+}

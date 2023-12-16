@@ -183,13 +183,3 @@ document.getElementsByName('formSubmit')[0].addEventListener('click', function(e
         console.error('Request failed:', error.message);
     });
 });
-
-// Function to get the value of a query parameter by name
-function getQueryParam(name, url = window.location.href) {
-    name = name.replace(/[\[\]]/g, "\\$&");
-    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
-    const result = regex.exec(url);
-    if (!result) return null;
-    if (!result[2]) return '';
-    return decodeURIComponent(result[2].replace(/\+/g, " "));
-}

@@ -123,7 +123,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
     } else if (event.target.classList.contains('view-data')) {
         const btn = event.target;
         const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
-        const text = `http://localhost:8888/viewSubmissions.html?form=${formName}`;
+        const text = `http://localhost:8888/viewSubmissions.html?formName=${formName}`;
         window.open(text, '_blank');
     }
 });

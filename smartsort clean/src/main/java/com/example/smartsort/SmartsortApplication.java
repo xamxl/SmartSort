@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.util.*;
@@ -338,7 +339,7 @@ class FormDataController {
     if (! Forms.doesFormExist(getSubmissionsInput.getEmail(), getSubmissionsInput.getFormName()))
             return "{\"text\":\"INVALID_FORM\"}";
     Map<String, Object>[] submissions = Forms.getSubmissions(getSubmissionsInput.getEmail(), getSubmissionsInput.getFormName());
-    Gson gson = new Gson();
+    Gson gson = new GsonBuilder().create();
     return gson.toJson(submissions);
   }
 
