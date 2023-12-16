@@ -48,6 +48,7 @@ public class SmartsortApplication {
                 registry.addMapping("/deleteForm-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/getForm-javaconfig").allowedOrigins("http://localhost:8888");
                 registry.addMapping("/submitForm-javaconfig").allowedOrigins("http://localhost:8888");
+                registry.addMapping("/getSubmissions-javaconfig").allowedOrigins("http://localhost:8888");
 			}
 		};
 	}
@@ -327,6 +328,18 @@ class FormDataController {
         return "{\"text\":\"INVALID_RESPONSE\"}";
     Forms.writeSubmission(submitFormInput.getEmail(), submitFormInput.getFormName(), submitFormInput.getSubmissions());
     return "{}";
+  }
+
+  @CrossOrigin(origins = "http://localhost:8888")
+  @PostMapping("/getSubmissions")
+  public String handelGetSubmissions(@ModelAttribute GetSubmissionsInput getSubmissionsInput) {
+    if (! AccountServices.verifyLogin(getSubmissionsInput.getEmail(), getSubmissionsInput.getKey()))
+            return "{\"text\":\"INVALID_LOGIN\"}";
+    if (! Forms.doesFormExist(getSubmissionsInput.getEmail(), getSubmissionsInput.getFormName()))
+            return "{\"text\":\"INVALID_FORM\"}";
+    Map<String, Object>[] submissions = Forms.getSubmissions(getSubmissionsInput.getEmail(), getSubmissionsInput.getFormName());
+    Gson gson = new Gson();
+    return gson.toJson(submissions);
   }
 
 }

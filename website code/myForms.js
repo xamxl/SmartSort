@@ -43,7 +43,8 @@ window.onload = function() {
                                     <div class="form-entry d-flex align-items-center justify-content-between">
                                         <h3>${formName}</h3>
                                         <div>
-                                            <button class="btn btn-primary btn-sm" style="outline: none;box-shadow: none;">Copy Link</button>
+                                            <button class="btn btn-primary btn-sm view-data" style="outline: none;box-shadow: none;">View Data</button>
+                                            <button class="btn btn-primary btn-sm copy-link" style="outline: none;box-shadow: none;">Copy Link</button>
                                             <button class="btn btn-danger btn-sm delete-btn" data-click-count="0" style="outline: none;box-shadow: none;">Delete</button>
                                         </div>
                                     </div>
@@ -112,13 +113,18 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
                 console.error('Request failed:', error.message);
             });
         }
-    } else if (event.target.classList.contains('btn-primary')) {
+    } else if (event.target.classList.contains('copy-link')) {
         const btn = event.target;
         const userEmail = encodeURIComponent(getCookie("email"));
         const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
         const text = `localhost:8888//fillOutForm.html?user=${userEmail}&formName=${formName}`;
         copyToClipboard(text);
         btn.textContent = "Link Copied";
+    } else if (event.target.classList.contains('view-data')) {
+        const btn = event.target;
+        const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
+        const text = `http://localhost:8888/viewSubmissions.html?form=${formName}`;
+        window.open(text, '_blank');
     }
 });
 
@@ -133,7 +139,7 @@ document.addEventListener('click', function(event) {
             resetDeleteButton(btn);
         }
     });
-    const copyLinkButtons = document.querySelectorAll('.btn-primary');
+    const copyLinkButtons = document.querySelectorAll('.copy-link');
     copyLinkButtons.forEach(btn => {
         if (event.target != btn) {
             btn.textContent = "Copy Link";

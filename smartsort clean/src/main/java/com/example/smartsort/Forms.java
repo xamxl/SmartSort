@@ -113,4 +113,22 @@ public class Forms {
         // Returns true if the result is the right length, false otherwise
         return (formLength + 1) == submission.size();
     }
+
+    // Returns a array of Map<String, Object> with all the submission file info
+    public static Map<String, Object>[] getSubmissions(String user, String formName) {
+        // Gets the collection of submissions
+        FireStoreHelper fSH = new FireStoreHelper();
+        fSH.setCollectionReference("users", user, "forms", formName, "submissions");
+        // Gets the names of all the submissions
+        String[] submissionIds = fSH.getFileNames();
+        // Loops through all the names, finding the file and reading it
+        Map<String, Object>[] submissions = new Map[submissionIds.length];
+        for (int i = 0; i < submissionIds.length; i++) {
+            fSH.setFileReference("users", user, "forms", formName, "submissions", submissionIds[i]);
+            submissions[i] = fSH.readFile();
+        }
+        // Returns the result
+        fSH.close();
+        return submissions;
+    }
 }
