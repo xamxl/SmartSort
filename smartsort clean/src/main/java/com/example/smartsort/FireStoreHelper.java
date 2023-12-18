@@ -2,6 +2,7 @@ package com.example.smartsort;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.FileStore;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -122,7 +123,18 @@ public class FireStoreHelper {
             // Confirm the deletion
             future.get();
         } catch (InterruptedException | ExecutionException e) {}
-    }   
+    }
+
+    // Deletes the current collection
+    public void deleteCollection() {
+        // Gets the names of all files to delete
+        String[] fileNames = getFileNames();
+        // Loops through those files, selecting and deleting them
+        for (String name : fileNames) {
+            documentReference = collectionReference.document(name);
+            deleteFile();
+        }  
+    }
 
     // Returns the names of all files in the current collection
     public String[] getFileNames() {

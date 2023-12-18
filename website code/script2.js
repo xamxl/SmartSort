@@ -16,7 +16,13 @@ window.onload = function() {
     if (page2Data && page2Data.file1Name != "" && page2Data.file1Name != undefined) {
         document.querySelector('div[name="file1buttondiv"]').style.display = "flex";
         document.querySelector('button[name="file2button"]').style.margin = "0px";
-        document.querySelector('label[name="file1buttonlabel"]').innerHTML = "Using saved file: " + page2Data.file1Name;
+        if (! page2Data.hasOwnProperty("usingForm")) {
+            document.querySelector('button[name="file1button"]').innerHTML = "Select New File";
+            document.querySelector('label[name="file1buttonlabel"]').innerHTML = "Using saved file: " + page2Data.file1Name;
+        } else {
+            document.querySelector('button[name="file1button"]').innerHTML = "Select File";
+            document.querySelector('label[name="file1buttonlabel"]').innerHTML = "Using saved data: " + page2Data.file1Name;
+        }
         file1UsingSaved = true;
     } else {
         document.querySelector('input[name="file1"]').style.display = "block";

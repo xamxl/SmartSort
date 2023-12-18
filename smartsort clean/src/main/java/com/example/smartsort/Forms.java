@@ -59,8 +59,13 @@ public class Forms {
 
     // Deletes a form
     public static void deleteForm(String user, String formName) {
-        // Gets a reference to the form
-        FireStoreHelper fSH = getFormReference(user, formName);
+        // Gets a reference to the form's submissions
+        FireStoreHelper fSH = new FireStoreHelper();
+        fSH.setCollectionReference("users", user, "forms", formName, "submissions");
+        // Deletes that collection
+        fSH.deleteCollection();
+        // Gets a reference to the form's file
+        fSH = getFormReference(user, formName);
         // Deletes the file
         fSH.deleteFile();
     }

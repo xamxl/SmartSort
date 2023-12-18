@@ -65,6 +65,9 @@ async function saveForm(form) {
             if (page2Data) {
                 data.file1 = page2Data.file1;
                 data.file1Name = page2Data.file1Name;
+                if (page2Data.usingForm == "true") {
+                    data.usingForm = "true";
+                }
             }
         }
 
