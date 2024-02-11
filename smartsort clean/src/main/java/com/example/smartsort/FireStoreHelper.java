@@ -137,11 +137,19 @@ public class FireStoreHelper {
     }
 
     // Returns the names of all files in the current collection
+    // TODO: redo other functions to make this more efficient
     public String[] getFileNames() {
         List<String> fileNamesList = new ArrayList<>();
-        // Gets the document id's and iterates over them
-        for (DocumentReference docRef : collectionReference.listDocuments()) {
-            fileNamesList.add(docRef.getId());
+        // asynchronously retrieve all documents
+        ApiFuture<QuerySnapshot> future = collectionReference.get();
+        try {
+            // future.get() blocks on response
+            // Gets the document id's and adds them to the list
+            for (QueryDocumentSnapshot document : future.get().getDocuments()) {
+                fileNamesList.add(document.getId());
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
         // Convert the list to an array
         return fileNamesList.toArray(new String[0]);
