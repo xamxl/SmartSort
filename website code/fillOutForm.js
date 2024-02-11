@@ -78,12 +78,13 @@ window.onload = function() {
                         case 'd':
                             input = document.createElement('select');
                             input.className = 'form-control';
-                            result.options[index].split(',').forEach(optionValue => {
+                            result.options[optionIndex].split(',').forEach(optionValue => {
                                 const option = document.createElement('option');
                                 option.value = optionValue;
                                 option.textContent = optionValue;
                                 input.appendChild(option);
                             });
+                            optionIndex++;
                             break;
                         case 't':
                             input = document.createElement('input');
