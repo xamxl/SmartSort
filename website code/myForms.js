@@ -123,12 +123,12 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
     } else if (event.target.classList.contains('copy-link')) {
         const userEmail = encodeURIComponent(getCookie("email"));
         const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
-        const text = `localhost:8888//fillOutForm.html?user=${userEmail}&formName=${formName}`;
+        const text = `https://smartsort.site//fillOutForm.html?user=${userEmail}&formName=${formName}`;
         copyToClipboard(text);
         btn.textContent = "Link Copied";
     } else if (event.target.classList.contains('view-data')) {
         const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
-        const text = `http://localhost:8888/viewSubmissions.html?formName=${formName}`;
+        const text = `https://smartsort.site/viewSubmissions.html?formName=${formName}`;
         window.open(text, '_blank');
     } else if (event.target.classList.contains('sort')) {
         btn.textContent = 'Fetching ...';

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Smart Sort</title>
+    <link rel="icon" href="so.png">
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100%; margin: 0;">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <div id="header"></div>
+<script src="myFunctions.js"></script>
+<script src="header.js"></script>
+
+    <div class="container mt-5">
+        <h1 class="text-center">Form Creator &#128221;</h1>
+        <p class="lead mt-4">
+            Welcome to Smart Sort's Form Creator! Form Creator allows you to runs sorts without inputting any user data. All you have to do is create a form, send it out, and then run your sort! Forms is still being developed and may contain bugs.        </p>
+        <p class="lead mt-4">
+            <a href="mailto:maxlaibson@gmail.com?subject=Learning To Use Forms" target="_blank">If you want to learn to use forms, email maxlaibson@gmail.com</a>
+        </p>
+        <form id="form-form-creator" action="submission.html" method="get">
+            <hr>
+            <div class="form-group">
+                <label name="formNameLabel">Form name:</label>
+                <input name="formName" placeholder="Untitled" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Identification description:</label>
+                <input name="idInstruct" placeholder="Describe how users should identify themselves ..." type="text" class="form-control">
+            </div>
+            <div id="fields-container"></div>
+            <div style="color: red;" name="errorText"></div>
+            <button type="button" onclick="addField('text')" class="btn btn-primary mt-4">Add Text Field</button>
+            <button type="button" onclick="addField('multiple')" class="btn btn-primary mt-4">Add Multiple Choice Field</button>
+            <button type="button" onclick="addField('dropdown')" class="btn btn-primary mt-4">Add Dropdown Field</button>
+            <input type="submit" name="create" value="Create Form >" class="btn btn-primary mt-4">
+        </form>
+    </div>
+    <div class="mt-5"></div> <!-- Empty space -->
+    <footer class="footer mt-auto py-3 bg-light text-center">
+        <div class="container"></div>
+            <span class="text-muted">For support, contact <a href="mailto:maxlaibson@gmail.com?subject=Question About Smart Sort" target="_blank">maxlaibson@gmail.com</a>.</span>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    
+    <script src="formCreator.js"></script>
+</body>
+</html>
+
+<style>
+input[type="submit"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+</style>
