@@ -24,7 +24,7 @@ public class FireStoreHelper {
     public FireStoreHelper() {
         try {
             // Gets credentials from file
-            FileInputStream serviceAccount = new FileInputStream ("./smart-sort-392323-c1a78e38811c.json");
+            FileInputStream serviceAccount = new FileInputStream ("./smart-sort-392323-4627062b6cfc.json");
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             // Creates fire store instance and saves it to db
             FirestoreOptions firestoreOptions =
@@ -137,6 +137,7 @@ public class FireStoreHelper {
     }
 
     // Returns the names of all files in the current collection
+    // TODO: Check if this is the issue. If so, fix it
     public String[] getFileNames() {
         List<String> fileNamesList = new ArrayList<>();
         // Gets the document id's and iterates over them
