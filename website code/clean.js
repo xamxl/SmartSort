@@ -75,7 +75,7 @@ document.getElementById('form-clean').addEventListener('submit', function(event)
 
     running = true;
 
-    fetch('http://localhost:8080/uploadClean', { 
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/uploadClean', { 
         method: 'POST', 
         body: formData
     })

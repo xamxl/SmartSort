@@ -17,7 +17,7 @@ window.onload = function() {
             formData.append("email", getCookie("email"));
             formData.append("formName", getQueryParam("formName"));
 
-            fetch('http://localhost:8080/getForm', {
+            fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getForm', {
                 method: 'POST', 
                 body: formData
             })
@@ -62,7 +62,7 @@ window.onload = function() {
                         
                         formData.append("key", getCookie("loginKey"));
 
-                        fetch('http://localhost:8080/getSubmissions', {
+                        fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getSubmissions', {
                             method: 'POST', 
                             body: formData
                         })

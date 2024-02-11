@@ -21,7 +21,7 @@ window.onload = function() {
             formData.append("email", getCookie("email"));
             formData.append("key", getCookie("loginKey"));
 
-            fetch('http://localhost:8080/getMyForms', {
+            fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getMyForms', {
                 method: 'POST', 
                 body: formData
             })
@@ -93,7 +93,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
             formData.append("key", getCookie("loginKey"));
             formData.append("formName", btn.closest('.form-entry').querySelector('h3').textContent);
 
-            fetch('http://localhost:8080/deleteForm', {
+            fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/deleteForm', {
                 method: 'POST', 
                 body: formData
             })
@@ -139,7 +139,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
         formData.append("email", getCookie("email"));
         formData.append("formName", btn.closest('.form-entry').querySelector('h3').textContent);
         
-        fetch('http://localhost:8080/getForm', {
+        fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getForm', {
                 method: 'POST', 
                 body: formData
         })
@@ -192,7 +192,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
 
                     formData.append("key", getCookie("loginKey"));
 
-                    fetch('http://localhost:8080/getSubmissions', {
+                    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getSubmissions', {
                         method: 'POST', 
                         body: formData
                     })
