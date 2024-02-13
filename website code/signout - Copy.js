@@ -33,7 +33,7 @@ document.getElementById('form-signout').addEventListener('submit', function(even
     formData.append("email", getCookie("email"));
     formData.append("key", getCookie("loginKey"));
 
-    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/signout', { 
+    fetch('http://localhost:8080/signout', { 
         method: 'POST', 
         body: formData
     })

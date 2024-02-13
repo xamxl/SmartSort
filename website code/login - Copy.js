@@ -81,7 +81,7 @@ document.getElementById('form-login').addEventListener('submit', function(event)
 
     running = true;
 
-    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/login', { 
+    fetch('http://localhost:8080/login', { 
         method: 'POST', 
         body: formData
     })

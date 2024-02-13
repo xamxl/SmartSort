@@ -49,7 +49,6 @@ public class Individual {
             10 * choiceParameters[7]
         };
 
-
     }
 
     public String[] getAttributes() {

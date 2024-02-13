@@ -17,11 +17,13 @@ public class Sort {
     public ArrayList<String> getAttributeOptions(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
+            if (i.getAttributes()[w] == null)
+                continue;
             boolean there = false;
-            for (String k : options) 
+            for (String k : options) {
                 if (i.getAttributes()[w].equals(k))
                     there = true;
-
+            }
             if (! there)
                 options.add(i.getAttributes()[w]);
         }
@@ -31,6 +33,8 @@ public class Sort {
     public ArrayList<String> getAttribute1Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
+            if (i.getAttributes()[w] == null)
+                continue;
             boolean there = false;
             for (String k : options)
                 if (i.getAttributes1()[w].equals(k))
@@ -44,6 +48,8 @@ public class Sort {
     public ArrayList<String> getAttribute2Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
+            if (i.getAttributes()[w] == null)
+                continue;
             boolean there = false;
             for (String k : options)
                 if (i.getAttributes2()[w].equals(k))
@@ -57,6 +63,8 @@ public class Sort {
     public ArrayList<String> getAttribute3Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
+            if (i.getAttributes()[w] == null)
+                continue;
             boolean there = false;
             for (String k : options)
                 if (i.getAttributes3()[w].equals(k))
