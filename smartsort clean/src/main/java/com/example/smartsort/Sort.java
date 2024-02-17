@@ -14,6 +14,21 @@ public class Sort {
         individuals = ss;
     }
 
+    // TODO: confirm this copy method actually works (consider the use of static variables in Location class)
+    public Sort copy() {
+        Location[] newLocations = new Location[locations.length];
+        for (int i = 0; i < locations.length; i++) {
+            newLocations[i] = locations[i].copy();
+        }
+        Individual[] newIndividuals = new Individual[individuals.length];
+        for (int i = 0; i < individuals.length; i++) {
+            newIndividuals[i] = individuals[i].copy();
+        }
+        Sort newSort = new Sort(newLocations, newIndividuals);
+        newSort.totalUnhappiness = totalUnhappiness;
+        return newSort;
+    }
+
     public ArrayList<String> getAttributeOptions(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
@@ -33,7 +48,7 @@ public class Sort {
     public ArrayList<String> getAttribute1Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
-            if (i.getAttributes()[w] == null)
+            if (i.getAttributes1()[w] == null)
                 continue;
             boolean there = false;
             for (String k : options)
@@ -48,7 +63,7 @@ public class Sort {
     public ArrayList<String> getAttribute2Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
-            if (i.getAttributes()[w] == null)
+            if (i.getAttributes2()[w] == null)
                 continue;
             boolean there = false;
             for (String k : options)
@@ -63,7 +78,7 @@ public class Sort {
     public ArrayList<String> getAttribute3Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
-            if (i.getAttributes()[w] == null)
+            if (i.getAttributes3()[w] == null)
                 continue;
             boolean there = false;
             for (String k : options)

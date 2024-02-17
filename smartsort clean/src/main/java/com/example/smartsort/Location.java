@@ -14,6 +14,41 @@ public class Location {
 
     private double[][] weights;
 
+    // Note: maxUnhappiness1 is not copied since it is static and is shared by all classes
+    public Location copy() {
+        ArrayList<Individual> newMembers = new ArrayList<>();
+        for (Individual i : members) {
+            newMembers.add(i.copy());
+        }
+
+        double[][] newMaxUnhappiness = new double[maxUnhappiness.length][];
+        for (int i = 0; i < maxUnhappiness.length; i++) {
+            newMaxUnhappiness[i] = new double[maxUnhappiness[i].length];
+            for (int j = 0; j < maxUnhappiness[i].length; j++) {
+                newMaxUnhappiness[i][j] = maxUnhappiness[i][j];
+            }
+        }
+
+        double[][] newWeights = new double[weights.length][];
+        for (int i = 0; i < weights.length; i++) {
+            newWeights[i] = new double[weights[i].length];
+            for (int j = 0; j < weights[i].length; j++) {
+                newWeights[i][j] = weights[i][j];
+            }
+        }
+
+        return new Location(capacity, minimum, newMembers, name, newMaxUnhappiness, newWeights);
+    }
+
+    public Location(int c, int min, ArrayList<Individual> mem, String n, double[][] mU, double[][] w) {
+        capacity = c;
+        minimum = min;
+        members = mem;
+        name = n;
+        maxUnhappiness = mU;
+        weights = w;
+    }
+
     public Location(int c, String n, int m, double[][] w) {
         weights = w;
         capacity = c;

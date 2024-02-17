@@ -30,9 +30,7 @@ public class SubmitFormInput {
     }
 
     public void setSubmissions(String submissions) {
-        System.out.println(submissions);
         Gson gson = new Gson();
         this.submissions = gson.fromJson(submissions, ArrayList.class);
-        System.out.println(this.submissions);
     }
 }

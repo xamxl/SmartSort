@@ -12,6 +12,29 @@ public class Individual {
 
     private String name;
 
+    public Individual copy() {
+        double[][] copiedWeights = new double[weights.length][];
+        for (int i = 0; i < weights.length; i++) {
+            copiedWeights[i] = weights[i].clone();
+        }
+
+        String[][] copiedChoices = new String[choices.length][];
+        for (int i = 0; i < choices.length; i++) {
+            copiedChoices[i] = choices[i].clone();
+        }
+
+        double[] copiedMaxUnhappiness = maxUnhappiness.clone();
+
+        return new Individual(name, copiedWeights, copiedChoices, copiedMaxUnhappiness);
+    }
+
+    public Individual(String n, double[][] w, String[][] c, double[] mU) {
+        name = n;
+        weights = w;
+        choices = c;
+        maxUnhappiness = mU;
+    }
+
     public Individual(ArrayList<String> x, int[] choiceParameters, double[][] w) {
         weights = w;
         name = x.get(0);

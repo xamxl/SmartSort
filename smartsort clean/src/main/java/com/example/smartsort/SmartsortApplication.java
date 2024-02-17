@@ -73,6 +73,7 @@ class FormDataController {
           return "{\"text\":\"INVALID\"}";
 
       Sort bestSort = null;
+      int iterFound = -1;
       ArrayList<Double> bestAverageUnhappinessOverIterations = null;
       for (int sortNum = 0; sortNum < sortInput.getNumber3(); sortNum++) {
           double[][] weights = {{sortInput.getWeight1()}, {sortInput.getWeight2()}, {sortInput.getWeight3()}, {sortInput.getWeight4()}, {sortInput.getWeight5()}, {sortInput.getWeight6()}, {sortInput.getWeight7()}, {sortInput.getWeight8()}, sortInput.getWeight9(), sortInput.getWeight10(), {sortInput.getNumber1()}, sortInput.getWeight11(), sortInput.getWeight12()};
@@ -84,6 +85,39 @@ class FormDataController {
           Location[] l = new Location[input1.size()];
           for (int i = 0; i < input1.size(); i++)
               l[i] = new Location(Integer.parseInt(input1.get(i).get(1)), input1.get(i).get(0), Integer.parseInt(input1.get(i).get(2)), weights);
+          
+          int nullCount = 0;
+          for (Individual i : ind) {
+          if (i.getName() == null)
+              nullCount++;
+          }
+
+          Individual[] ind1 = new Individual[ind.length - nullCount];
+          int counter = 0;
+          for (Individual i : ind) {
+            if (i.getName() != null) {
+                ind1[counter] = i;
+                counter++;
+            }
+          }
+          ind = ind1;
+
+          nullCount = 0;
+          for (Location i : l) {
+          if (i.getName() == null)
+              nullCount++;
+          }
+        
+          Location[] l1 = new Location[l.length - nullCount];
+          counter = 0;
+          for (Location i : l) {
+              if (i.getName() != null) {
+                  l1[counter] = i;
+                  counter++;
+              }
+          }
+          l = l1;
+
           Sort sort = new Sort(l, ind);
           for (int i = 0; i < input1.size(); i++)
               l[i].calculateMaxUnhappiness(sort);
@@ -94,8 +128,13 @@ class FormDataController {
           }
           ArrayList<Double> averageUnhappinessOverIterations = new ArrayList<>();
 
+        int iS = -1;
         if (type.equals("normal")) {
               sort.allChoiceAssignment();
+
+              double minTotalUnhappiness = sort.getUnhappiness();
+              iS = 0;
+              Sort minSort = sort.copy();
 
               // TODO: Confirm that iteration actually helps
               for (int i = 0; i < iter; i++) {
@@ -103,8 +142,15 @@ class FormDataController {
                   sort.reassignX(3);
                   sort.sumUnhappiness();
                   averageUnhappinessOverIterations.add(sort.getUnhappiness()/sort.getIndividuals().length);
-                  //System.out.print(sort.getUnhappiness() + ",");
+
+                  if (sort.getUnhappiness() < minTotalUnhappiness) {
+                      minTotalUnhappiness = sort.getUnhappiness();
+                      minSort = sort.copy();
+                      iS = i;
+                  }
               }
+
+              sort = minSort;
           } else {
               sort.randomAssignment();
               sort.sumUnhappiness();
@@ -112,6 +158,7 @@ class FormDataController {
           if (bestSort == null || bestSort.getUnhappiness() > sort.getUnhappiness()) {
               bestSort = sort;
               bestAverageUnhappinessOverIterations = averageUnhappinessOverIterations;
+              iterFound = iS;
           }
       }
 
@@ -142,6 +189,7 @@ class FormDataController {
       result.put("numberOfSorts", sortInput.getNumber3());
       result.put("averageUnhappiness", bestSort.getUnhappiness()/bestSort.getIndividuals().length);
       result.put("averageUnhappinessOverIterations", bestAverageUnhappinessOverIterations);
+      result.put("iterFound", iterFound);
 
       List<String> locationNames = new ArrayList<>();
       for (Location i : bestSort.getLocations()) {

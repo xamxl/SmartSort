@@ -44,6 +44,7 @@ window.onload = function() {
         const yValues = sortResult.averageUnhappinessOverIterations;
 
         const ctx = document.getElementById('myChart').getContext('2d');
+        console.log(sortResult.iterFound);
         const myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -71,6 +72,19 @@ window.onload = function() {
                         font: {
                             size: 18
                         }
+                    },
+                    // Add annotation plugin configuration here
+                    annotation: {
+                        annotations: {
+                            line1: { // This is an arbitrary ID for the annotation
+                                type: 'line',
+                                mode: 'vertical',
+                                scaleID: 'x',
+                                value: sortResult.iterFound, // The x value to draw the line at
+                                borderColor: 'red', // Color of the line
+                                borderWidth: 3,
+                            }
+                        }
                     }
                 },
                 scales: {
@@ -88,7 +102,8 @@ window.onload = function() {
                     }
                 }
             }
-        });       
+        });
+
 
         if (yValues.length != 0) {
             document.getElementById('myChart').style.display = "block";
