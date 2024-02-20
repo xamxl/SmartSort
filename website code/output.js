@@ -26,16 +26,23 @@ window.onload = function() {
         document.getElementById('tableDiv').innerHTML = html;
 
         html = '<div class="table-responsive"><table id="table1" class="table table-hover table-striped"><thead class="thead-dark"><tr>';
-        html += `<th scope="col">Individual</th>`;
-        html += `<th scope="col">Location</th>`;
+        
+        for (let i = 0; i < sortResult.output1[0].length; i++) {
+            html += `<th scope="col">${sortResult.output1[0][i]}</th>`;
+        }
+
         html += '</tr></thead><tbody>';
 
         // Loop through the rest of the rows
-        for(let i = 0; i < sortResult.output1.length; i++) {
+        for(let i = 1; i < sortResult.output1.length; i++) {
             html += "<tr>";
-            sortResult.output1[i].forEach(cell => {
-                html += `<td>${cell}</td>`;
-            });
+            for (let j = 0; j < sortResult.output1[i].length; j++) {
+                if (j == 0 || sortResult.output2[i-1][j] == false) {
+                    html += `<td>${sortResult.output1[i][j]}</td>`;
+                } else {
+                    html += `<td style="background-color:#ff5c74;border:#ff5c74">${sortResult.output1[i][j]}</td>`;
+                }
+            }
             html += "</tr>";
         }
         html += "</tbody></table></div>";

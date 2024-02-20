@@ -78,10 +78,10 @@ class FormDataController {
       for (int sortNum = 0; sortNum < sortInput.getNumber3(); sortNum++) {
           double[][] weights = {{sortInput.getWeight1()}, {sortInput.getWeight2()}, {sortInput.getWeight3()}, {sortInput.getWeight4()}, {sortInput.getWeight5()}, {sortInput.getWeight6()}, {sortInput.getWeight7()}, {sortInput.getWeight8()}, sortInput.getWeight9(), sortInput.getWeight10(), {sortInput.getNumber1()}, sortInput.getWeight11(), sortInput.getWeight12()};
           ArrayList<ArrayList<String>> input = MyUtility.readJsonStringInput(sortInput.getFile1());
-          Individual[] ind = new Individual[input.size()];
-          for (int i = 0; i < input.size(); i++)
-              ind[i] = new Individual(input.get(i), new int[] {sortInput.getValue1(), sortInput.getValue2(), sortInput.getValue3(), sortInput.getValue4(), sortInput.getValue5(), sortInput.getValue6(), sortInput.getValue7(), sortInput.getValue8(), sortInput.getValue9(), sortInput.getValue10(), sortInput.getValue11(), sortInput.getValue12()}, weights);
-              ArrayList<ArrayList<String>> input1 = MyUtility.readJsonStringInput(sortInput.getFile2());
+          Individual[] ind = new Individual[input.size() - 1];
+          for (int i = 1; i < input.size(); i++)
+              ind[i-1] = new Individual(input.get(i), input.get(0), new int[] {sortInput.getValue1(), sortInput.getValue2(), sortInput.getValue3(), sortInput.getValue4(), sortInput.getValue5(), sortInput.getValue6(), sortInput.getValue7(), sortInput.getValue8(), sortInput.getValue9(), sortInput.getValue10(), sortInput.getValue11(), sortInput.getValue12()}, weights);
+          ArrayList<ArrayList<String>> input1 = MyUtility.readJsonStringInput(sortInput.getFile2());
           Location[] l = new Location[input1.size()];
           for (int i = 0; i < input1.size(); i++)
               l[i] = new Location(Integer.parseInt(input1.get(i).get(1)), input1.get(i).get(0), Integer.parseInt(input1.get(i).get(2)), weights);
@@ -182,6 +182,11 @@ class FormDataController {
         }
       }
 
+      for (Individual i : bestSort.getIndividuals()) {
+        i.setFalseChoiceUnhappy();
+      }
+      bestSort.sumUnhappiness();
+
       Gson gson = new Gson();
 
       Map<String, Object> result = new LinkedHashMap<>();
@@ -216,28 +221,45 @@ class FormDataController {
       }
       result.put("output", output);
 
-      String[] alpha = new String[bestSort.getIndividuals().length];
-      int counter = 0;
-      for (Location i : bestSort.getLocations()) {
-          for (Individual ii : i.getMembers()) {
-              alpha[counter] = ii.getName() + "sl1tter7139203945" + i.getName();
-              counter++;
-          }
-      }
+        List<List<String>> output1 = new ArrayList<>();
 
-      Arrays.sort(alpha, Comparator.naturalOrder());
+        // Populate the first row with the column headers
+        List<String> header = new ArrayList<>();
+        header.add("Name");
+        header.add("Location");
+        for (String h : bestSort.getIndividuals()[0].getHeaders()) {
+            header.add(h);
+        }
+        output1.add(header);
 
-      List<List<String>> output1 = new ArrayList<>();
+        for (Location i : bestSort.getLocations()) {
+            for (Individual ii : i.getMembers()) {
+                List<String> row = new ArrayList<>();
+                row.add(ii.getName()); // Individual's name
+                row.add(i.getName()); // Location
+                String[] choices = ii.getChoices();
+                for (String choice : choices) {
+                    row.add(choice);
+                }
+                output1.add(row);
+            }
+        }
+        result.put("output1", output1);
 
-      // Populate the subsequent rows with data from the sorted alpha array
-      for (String i : alpha) {
-          List<String> row = new ArrayList<>();
-          String[] parts = i.split("sl1tter7139203945");
-          row.add(parts[0]); // Individual's name
-          row.add(parts[1]); // Location
-          output1.add(row);
-      }
-      result.put("output1", output1);
+        List<List<Boolean>> output2 = new ArrayList<>();
+
+        for (Location i : bestSort.getLocations()) {
+            for (Individual ii : i.getMembers()) {
+                List<Boolean> row = new ArrayList<>();
+                row.add(i.isUnhappy());
+                boolean[] choices = ii.getChoiceUnhappy();
+                for (boolean choice : choices) {
+                    row.add(choice);
+                }
+                output2.add(row);
+            }
+        }
+        result.put("output2", output2);
 
       String jsonString = gson.toJson(result);
 

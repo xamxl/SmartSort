@@ -175,6 +175,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
 
                     let countMap = {};
                     let savedSortTypes = result.sortTypes;
+                    let savedHeaders = result.texts;
 
                     result.sortTypes.forEach(type => {
                         countMap[type] = (countMap[type] || 0) + 1;
@@ -218,7 +219,11 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
                                 // savedSortTypes contains the titles
                                 // tags contains the right order
 
-                                let ordered = [];
+                                let ordered = [["Name"]];
+                                savedHeaders.forEach(header => {
+                                    ordered[0].push(header);
+                                });
+
                                 arrayOfArrays.forEach((identifier) => {
                                     ordered.push([identifier[0]]);
                                 });
@@ -226,8 +231,8 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
                                 tags.forEach((type) => {
                                     for (let i = 0; i < savedSortTypes.length; i++) {
                                         if (type == savedSortTypes[i]) {
-                                            for (let v = 0; v < ordered.length; v++) {
-                                                ordered[v].push(arrayOfArrays[v][i+1]);
+                                            for (let v = 1; v < ordered.length; v++) {
+                                                ordered[v].push(arrayOfArrays[v-1][i+1]);
                                             }
                                         }
                                     }

@@ -14,6 +14,12 @@ public class Location {
 
     private double[][] weights;
 
+    boolean unhappy = false;
+
+    public boolean isUnhappy() {
+        return unhappy;
+    }
+
     // Note: maxUnhappiness1 is not copied since it is static and is shared by all classes
     public Location copy() {
         ArrayList<Individual> newMembers = new ArrayList<>();
@@ -125,10 +131,14 @@ public class Location {
     public double calculateUnhappiness(Sort e) {
         double unhappiness = 0;
         // TODO: All weight indexes need to be checked
-        if (members.size() == 0)
+        unhappy = false;
+        if (members.size() == 0) {
             unhappiness += weights[10][0] * MyUtility.interpolate(maxUnhappiness[0][0], Math.pow(minimum * 60, 2));
-        else if (members.size() < minimum)
+            unhappy = true;
+        } else if (members.size() < minimum) {
             unhappiness += weights[10][0] * MyUtility.interpolate(maxUnhappiness[0][0], Math.pow((minimum - members.size()) * 60, 2));
+            unhappy = true;
+        }
         if (members.size() != 0) {
             // TOOD: Why does this balancing not work instantly?
             // TODO: Is calling getAttributes every time redundant?
@@ -147,6 +157,11 @@ public class Location {
                     uS += 10 * Math.abs(attributeCounts[k] / members.size() - (1.0 / attributeOptions.size()));
                 if (uS > maxUnhappiness1[i]) {
                     maxUnhappiness1[i] = uS;
+                }
+                if (uS > 0) {
+                    for (Individual k : members) {
+                        k.setChoiceUnhappyAttributes(i);
+                    }
                 }
                 unhappiness += weights[8][i] * MyUtility.interpolate(maxUnhappiness1[i], uS);
             }
@@ -169,6 +184,11 @@ public class Location {
                     if (k == maxIndex)
                         uS += 10 * (1 - attributeCounts[k] / members.size());
                 }
+                if (uS > 0) {
+                    for (Individual k : members) {
+                        k.setChoiceUnhappyAttributes1(i);
+                    }
+                }
                 unhappiness += weights[9][i] * MyUtility.interpolate(maxUnhappiness[2][i], uS);
             }
 
@@ -188,6 +208,11 @@ public class Location {
                         uS += 1;
                     }
                 }
+                if (uS > 0) {
+                    for (Individual k : members) {
+                        k.setChoiceUnhappyAttributes2(i);
+                    }
+                }
                 unhappiness += weights[11][i] * MyUtility.interpolate(maxUnhappiness[3][i], uS);
             }
 
@@ -204,6 +229,11 @@ public class Location {
                 for (int k = 0; k < attributeCounts.length; k++) {
                     if (attributeCounts[k] > 1) {
                         uS += attributeCounts[k];
+                    }
+                }
+                if (uS > 0) {
+                    for (Individual k : members) {
+                        k.setChoiceUnhappyAttributes3(i);
                     }
                 }
                 unhappiness += weights[12][i] * MyUtility.interpolate(maxUnhappiness[4][i], uS);
