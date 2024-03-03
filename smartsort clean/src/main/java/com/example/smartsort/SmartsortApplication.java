@@ -182,8 +182,10 @@ class FormDataController {
         }
       }
 
-      for (Individual i : bestSort.getIndividuals()) {
-        i.setFalseChoiceUnhappy();
+      for (Location i : bestSort.getLocations()) {
+        for (Individual ii : i.getMembers()) {
+            ii.setFalseChoiceUnhappy();
+        }
       }
       bestSort.sumUnhappiness();
 

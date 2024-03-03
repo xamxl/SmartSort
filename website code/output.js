@@ -37,7 +37,9 @@ window.onload = function() {
         for(let i = 1; i < sortResult.output1.length; i++) {
             html += "<tr>";
             for (let j = 0; j < sortResult.output1[i].length; j++) {
-                if (j == 0 || sortResult.output2[i-1][j] == false) {
+                if (j != 0) {
+                }
+                if (j == 0 || sortResult.output2[i-1][j-1] == false) {
                     html += `<td>${sortResult.output1[i][j]}</td>`;
                 } else {
                     html += `<td style="background-color:#ff5c74;border:#ff5c74">${sortResult.output1[i][j]}</td>`;
@@ -51,7 +53,6 @@ window.onload = function() {
         const yValues = sortResult.averageUnhappinessOverIterations;
 
         const ctx = document.getElementById('myChart').getContext('2d');
-        console.log(sortResult.iterFound);
         const myChart = new Chart(ctx, {
             type: 'line',
             data: {

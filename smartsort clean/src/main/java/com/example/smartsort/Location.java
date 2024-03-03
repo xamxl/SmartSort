@@ -212,6 +212,9 @@ public class Location {
                     for (Individual k : members) {
                         k.setChoiceUnhappyAttributes2(i);
                     }
+                } else {
+                    for (Individual k : members) {
+                    }
                 }
                 unhappiness += weights[11][i] * MyUtility.interpolate(maxUnhappiness[3][i], uS);
             }
