@@ -146,6 +146,11 @@ public class Location {
             for (int i = 0; i < members.get(0).getAttributes().length; i++) {
                 uS = 0;
                 ArrayList<String> attributeOptions = e.getAttributeOptions(i);
+                ArrayList<Integer> attributeCountsAll = e.getAttributeCounts(i);
+                int totalSize = 0;
+                for (Individual k : e.getIndividuals()) {
+                    totalSize++;
+                }
                 double[] attributeCounts = new double[attributeOptions.size()];
                 for (Individual k : members) {
                     for (int j = 0; j < attributeOptions.size(); j++) {
@@ -153,15 +158,33 @@ public class Location {
                             attributeCounts[j]++;
                     }
                 }
-                for (int k = 0; k < attributeCounts.length; k++)
+                for (int k = 0; k < attributeCounts.length; k++) {
                     uS += 10 * Math.abs(attributeCounts[k] / members.size() - (1.0 / attributeOptions.size()));
+                    // TODO: make below work
+                    // you should be able to be one off when the proportion does not line up exactly?
+                    // test what you have now with differnet size groups (even sized groups)
+                    // and think about the logic out loud. to a parent?
+                    if ((members.size() * (1.0 / attributeOptions.size()) != (int) (members.size() * (1.0 / attributeOptions.size())))) {
+                        if (Math.abs((int) (members.size() * (1.0 / attributeOptions.size()) + .5) - attributeCounts[k]) > 1) {
+                            for (Individual t : members) {
+                                t.setChoiceUnhappyAttributes(i);
+                            }
+                        }
+                    } else {
+                        if (Math.abs((members.size() * (1.0 / attributeOptions.size())) - attributeCounts[k]) != 0) {
+                            for (Individual t : members) {
+                                t.setChoiceUnhappyAttributes(i);
+                            }
+                        }
+                    }
+                    /*if (Math.abs((int) (members.size() * (1.0 / attributeOptions.size()) + .5) - attributeCounts[k]) > 1) {
+                        for (Individual t : members) {
+                            t.setChoiceUnhappyAttributes(i);
+                        }
+                    }*/
+                }
                 if (uS > maxUnhappiness1[i]) {
                     maxUnhappiness1[i] = uS;
-                }
-                if (uS > 0) {
-                    for (Individual k : members) {
-                        k.setChoiceUnhappyAttributes(i);
-                    }
                 }
                 unhappiness += weights[8][i] * MyUtility.interpolate(maxUnhappiness1[i], uS);
             }

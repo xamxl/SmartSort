@@ -45,6 +45,21 @@ public class Sort {
         return options;
     }
 
+    public ArrayList<Integer> getAttributeCounts(int w) {
+        ArrayList<Integer> counts = new ArrayList<>();
+        for (String i : getAttributeOptions(w)) {
+            int count = 0;
+            for (Individual ii : individuals) {
+                if (ii.getAttributes()[w] == null)
+                    continue;
+                if (ii.getAttributes()[w].equals(i))
+                    count++;
+            }
+            counts.add(count);
+        }
+        return counts;
+    }
+
     public ArrayList<String> getAttribute1Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
