@@ -30,8 +30,8 @@ async function isLoggedIn() {
     }
 }
 
-async function saveForm(form) {
-    if (form == "page1.html") {
+async function saveForm(form1) {
+    if (form1 == "page1.html") {
         var form = document.getElementById('form-page-1');
         var formData = new FormData(form);
         var data = {};
@@ -43,7 +43,7 @@ async function saveForm(form) {
 
         // store form data in LocalStorage
         localStorage.setItem('page1Data', JSON.stringify(data));
-    } else if (form == "page2.html") {
+    } else if (form1 == "page2.html") {
         var form = document.getElementById('form-page-2');
         var formData = new FormData(form);
         let data = {};
