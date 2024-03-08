@@ -83,9 +83,13 @@ class FormDataController {
               ind[i-1] = new Individual(input.get(i), input.get(0), new int[] {sortInput.getValue1(), sortInput.getValue2(), sortInput.getValue3(), sortInput.getValue4(), sortInput.getValue5(), sortInput.getValue6(), sortInput.getValue7(), sortInput.getValue8(), sortInput.getValue9(), sortInput.getValue10(), sortInput.getValue11(), sortInput.getValue12()}, weights);
           ArrayList<ArrayList<String>> input1 = MyUtility.readJsonStringInput(sortInput.getFile2());
           Location[] l = new Location[input1.size()];
-          for (int i = 0; i < input1.size(); i++)
-              l[i] = new Location(Integer.parseInt(input1.get(i).get(1)), input1.get(i).get(0), Integer.parseInt(input1.get(i).get(2)), weights);
-          
+          for (int i = 0; i < input1.size(); i++) {
+              // SOLUTION: maybe needed above with individuals as well, if there is an error, skip that location
+              try {
+                l[i] = new Location(Integer.parseInt(input1.get(i).get(1)), input1.get(i).get(0), Integer.parseInt(input1.get(i).get(2)), weights);
+              } catch (Exception e) {}
+          }
+
           int nullCount = 0;
           for (Individual i : ind) {
           if (i.getName() == null)
@@ -104,14 +108,15 @@ class FormDataController {
 
           nullCount = 0;
           for (Location i : l) {
-          if (i.getName() == null)
-              nullCount++;
+            if (i == null || i.getName() == null)
+                nullCount++;
           }
         
           Location[] l1 = new Location[l.length - nullCount];
           counter = 0;
           for (Location i : l) {
-              if (i.getName() != null) {
+            // problem??
+              if (i != null && i.getName() != null) {
                   l1[counter] = i;
                   counter++;
               }
@@ -119,7 +124,7 @@ class FormDataController {
           l = l1;
 
           Sort sort = new Sort(l, ind);
-          for (int i = 0; i < input1.size(); i++)
+          for (int i = 0; i < l.length; i++)
               l[i].calculateMaxUnhappiness(sort);
 
           int iter = sortInput.getNumber2();
