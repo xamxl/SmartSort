@@ -165,7 +165,10 @@ public class Location {
                     // test what you have now with differnet size groups (even sized groups)
                     // and think about the logic out loud. to a parent?
                     if ((members.size() * (1.0 / attributeOptions.size()) != (int) (members.size() * (1.0 / attributeOptions.size())))) {
-                        if (Math.abs((int) (members.size() * (1.0 / attributeOptions.size()) + .5) - attributeCounts[k]) > 1) {
+                        // do problem is that it rounds up to 5, then can be one off, so can be 6
+                        // so really you should round down and then check if it is that or one bigger?
+                        // and then all other fancy stuff to check the 2, 3, 4, 5, and 6 cases?
+                        if ((int) (members.size() * (1.0 / attributeOptions.size())) - attributeCounts[k] >= 1 || Math.abs((int) (members.size() * (1.0 / attributeOptions.size())) - attributeCounts[k]) > 1) {
                             for (Individual t : members) {
                                 t.setChoiceUnhappyAttributes(i);
                             }
