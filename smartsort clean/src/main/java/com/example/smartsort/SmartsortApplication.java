@@ -167,25 +167,29 @@ class FormDataController {
           }
       }
 
-      int number;
-      boolean go = false;
+      ArrayList<String> names = new ArrayList<>();
+      ArrayList<Integer> numbers = new ArrayList<>();
       for (Location i : bestSort.getLocations()) {
-        String name1 = i.getName();
-        number = 0;
-        go = true;
-        while (go) {
-            if (number != 0)
-                i.setName(name1 + " " + number);
-            boolean found = false;
-            for (Location ii : bestSort.getLocations())
-                if (i.getName().equals(ii.getName()) && i != ii)
-                    found = true;
-            if (found) {
-                number++;
-            } else
-            go = false;
-        }
+          if (names.indexOf(i.getName()) == -1) {
+                names.add(i.getName());
+                numbers.add(1);
+            } else {
+                numbers.set(names.indexOf(i.getName()), numbers.get(names.indexOf(i.getName())) + 1);
+            }
       }
+      for (int i = 0; i < numbers.size(); i++) {
+          if (numbers.get(i) == 1) {
+              numbers.remove(i);
+              names.remove(i);
+              i--;
+          }
+      }
+      for (Location i : bestSort.getLocations()) {
+        if (names.indexOf(i.getName()) != -1 && numbers.get(names.indexOf(i.getName())) >= 1) {
+            numbers.set(names.indexOf(i.getName()), numbers.get(names.indexOf(i.getName())) - 1);
+            i.setName(i.getName() + " " + (numbers.get(names.indexOf(i.getName()))+1));
+      }
+    }
 
       for (Location i : bestSort.getLocations()) {
         for (Individual ii : i.getMembers()) {
