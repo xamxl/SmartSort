@@ -1,3 +1,13 @@
+if (/Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    if (!window.location.href.endsWith("index.html")) {
+        window.location = "index.html";
+    } else {
+        document.getElementsByTagName("html")[0].style.fontSize = "40px";
+        document.getElementById("buttons").style.display = "none";
+        document.getElementById("tabpc").style.display = "block";
+    } 
+}
+
 function getCookie(name) {
     const value = document.cookie.split('; ').find(row => row.startsWith(name + '='));
     return value ? value.split('=')[1] : false;
