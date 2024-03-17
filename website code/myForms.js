@@ -21,7 +21,7 @@ window.onload = function() {
             formData.append("email", getCookie("email"));
             formData.append("key", getCookie("loginKey"));
 
-            fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getMyForms', {
+            fetch('http://localhost:8080/getMyForms', {
                 method: 'POST', 
                 body: formData
             })
@@ -93,7 +93,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
             formData.append("key", getCookie("loginKey"));
             formData.append("formName", btn.closest('.form-entry').querySelector('h3').textContent);
 
-            fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/deleteForm', {
+            fetch('http://localhost:8080/deleteForm', {
                 method: 'POST', 
                 body: formData
             })
@@ -123,12 +123,12 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
     } else if (event.target.classList.contains('copy-link')) {
         const userEmail = encodeURIComponent(getCookie("email"));
         const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
-        const text = `https://smartsort.site//fillOutForm.html?user=${userEmail}&formName=${formName}`;
+        const text = `http://localhost:8888//fillOutForm.html?user=${userEmail}&formName=${formName}`;
         copyToClipboard(text);
         btn.textContent = "Link Copied";
     } else if (event.target.classList.contains('view-data')) {
         const formName = encodeURIComponent(btn.closest('.form-entry').querySelector('h3').textContent);
-        const text = `https://smartsort.site/viewSubmissions.html?formName=${formName}`;
+        const text = `http://localhost:8888/viewSubmissions.html?formName=${formName}`;
         window.open(text, '_blank');
     } else if (event.target.classList.contains('sort')) {
         btn.textContent = 'Fetching ...';
@@ -139,7 +139,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
         formData.append("email", getCookie("email"));
         formData.append("formName", btn.closest('.form-entry').querySelector('h3').textContent);
         
-        fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getForm', {
+        fetch('http://localhost:8080/getForm', {
                 method: 'POST', 
                 body: formData
         })
@@ -193,7 +193,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
 
                     formData.append("key", getCookie("loginKey"));
 
-                    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getSubmissions', {
+                    fetch('http://localhost:8080/getSubmissions', {
                         method: 'POST', 
                         body: formData
                     })
