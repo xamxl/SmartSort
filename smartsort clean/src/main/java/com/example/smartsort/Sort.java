@@ -160,6 +160,12 @@ public class Sort {
         
         ArrayList<Integer> availableIndexes = new ArrayList<>();
         getOpenLocations(availableIndexes);
+        int availableIndexesSize = availableIndexes.size();
+
+        if (availableIndexesSize < x) {
+            reassignX(x - 1);
+            return;
+        }
 
         Random random = new Random();
         int randomNumbersCount = 0;

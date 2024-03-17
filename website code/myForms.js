@@ -239,7 +239,7 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
                                 });
 
                                 ordered = JSON.stringify(ordered);
-                                let toStore = {"usingForm":"true", "file1":ordered, "file1Name":btn.closest('.form-entry').querySelector('h3').textContent};
+                                let toStore = {"string":(btn.closest('.form-entry').querySelector('h3').textContent + " Sort"), "usingForm":"true", "file1":ordered, "file1Name":btn.closest('.form-entry').querySelector('h3').textContent};
                                 localStorage.setItem('page2Data', JSON.stringify(toStore));
                                 
                                 window.location.href = "page2.html";

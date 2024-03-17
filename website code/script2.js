@@ -312,7 +312,7 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
     })
     .then(function(response) {
         if (!response.ok) {
-            document.getElementsByName("errorText")[0].innerHTML = "Sort was not successful. Please check inputs. Make sure that all files are correctly formatted and that all numeric inputs are non negative integers.";
+            document.getElementsByName("errorText")[0].innerHTML = "Sort was not successful. Please check inputs. To iterate you must have three or more individuals. Make sure that all files are correctly formatted and that all numeric inputs are non negative integers.";
             throw new Error('HTTP error, status = ' + response.status);
         }
         response.json().then((result) => {
