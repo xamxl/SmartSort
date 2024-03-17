@@ -65,7 +65,7 @@ document.getElementById('form-form-creator').addEventListener('submit', function
 
     running = true;
 
-    fetch('http://localhost:8080/createForm', {
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/createForm', {
         method: 'POST', 
         body: formData1
     })

@@ -8,7 +8,7 @@ window.onload = function() {
     formData.append("formName", getQueryParam("formName"));
     
     // Get and display form
-    fetch('http://localhost:8080/getForm', {
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/getForm', {
                 method: 'POST', 
                 body: formData
     })
@@ -148,7 +148,7 @@ document.getElementsByName('formSubmit')[0].addEventListener('click', function(e
 
     running = true;
     document.getElementsByName("formSubmit")[0].value = "Submitting ...";
-    fetch('http://localhost:8080/submitForm', {
+    fetch('https://smartsortclean-culsd3w6ha-uw.a.run.app/submitForm', {
                 method: 'POST', 
                 body: formData
     })
