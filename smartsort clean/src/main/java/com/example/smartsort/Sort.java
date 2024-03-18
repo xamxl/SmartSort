@@ -90,6 +90,7 @@ public class Sort {
         return options;
     }
 
+    //TODO: I think you can just do this once
     public ArrayList<String> getAttribute3Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
@@ -103,6 +104,36 @@ public class Sort {
                 options.add(i.getAttributes3()[w]);
         }
         return options;
+    }
+
+    public ArrayList<String> getAttribute4Options(int w) {
+        ArrayList<String> options = new ArrayList<>();
+        for (Individual i : individuals) {
+            if (i.getAttributes4()[w] == null)
+                continue;
+            boolean there = false;
+            for (String k : options)
+                if (i.getAttributes4()[w].equals(k))
+                    there = true;
+            if (! there)
+                options.add(i.getAttributes4()[w]);
+        }
+        return options;
+    }
+
+    public int[] getAttribute4Counts(int w, ArrayList<String> a4O) {
+        int[] counts = new int[a4O.size()];
+        for (int i = 0; i < a4O.size(); i++) {
+            int count = 0;
+            for (Individual ii : individuals) {
+                if (ii.getAttributes4()[w] == null)
+                    continue;
+                if (ii.getAttributes4()[w].equals(a4O.get(i)))
+                    count++;
+            }
+            counts[i] = count;
+        }
+        return counts;
     }
 
     public Individual[] getIndividuals() {

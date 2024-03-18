@@ -33,6 +33,8 @@ public class SortInput {
     private String weight11;
     private String value12;
     private String weight12;
+    private String value13;
+    private String weight13;
     private String email;
     private String key;
 
@@ -297,6 +299,27 @@ public class SortInput {
 
     public void setWeight12(String weight12) {
         this.weight12 = weight12;
+    }
+
+    public int getValue13() {
+        return (value13 == null || value13.equals("")) ? 0 : Integer.parseInt(value13);
+    }
+
+    public void setValue13(String value13) {
+        this.value13 = value13;
+    }
+
+    public double[] getWeight13() {
+        if (weight13 == null || weight13.isEmpty()) {
+            double[] toRet = new double[getValue13()];
+            Arrays.fill(toRet, 1);
+            return toRet;
+        }
+        return Arrays.stream(weight13.split(",")).mapToDouble(Double::parseDouble).toArray();
+    }
+
+    public void setWeight13(String weight13) {
+        this.weight13 = weight13;
     }
 
     public String getKey() {

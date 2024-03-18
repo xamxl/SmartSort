@@ -1,8 +1,6 @@
 package com.example.smartsort;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -76,11 +74,11 @@ class FormDataController {
       int iterFound = -1;
       ArrayList<Double> bestAverageUnhappinessOverIterations = null;
       for (int sortNum = 0; sortNum < sortInput.getNumber3(); sortNum++) {
-          double[][] weights = {{sortInput.getWeight1()}, {sortInput.getWeight2()}, {sortInput.getWeight3()}, {sortInput.getWeight4()}, {sortInput.getWeight5()}, {sortInput.getWeight6()}, {sortInput.getWeight7()}, {sortInput.getWeight8()}, sortInput.getWeight9(), sortInput.getWeight10(), {sortInput.getNumber1()}, sortInput.getWeight11(), sortInput.getWeight12()};
+          double[][] weights = {{sortInput.getWeight1()}, {sortInput.getWeight2()}, {sortInput.getWeight3()}, {sortInput.getWeight4()}, {sortInput.getWeight5()}, {sortInput.getWeight6()}, {sortInput.getWeight7()}, {sortInput.getWeight8()}, sortInput.getWeight9(), sortInput.getWeight10(), {sortInput.getNumber1()}, sortInput.getWeight11(), sortInput.getWeight12(), sortInput.getWeight13()};
           ArrayList<ArrayList<String>> input = MyUtility.readJsonStringInput(sortInput.getFile1());
           Individual[] ind = new Individual[input.size() - 1];
           for (int i = 1; i < input.size(); i++)
-              ind[i-1] = new Individual(input.get(i), input.get(0), new int[] {sortInput.getValue1(), sortInput.getValue2(), sortInput.getValue3(), sortInput.getValue4(), sortInput.getValue5(), sortInput.getValue6(), sortInput.getValue7(), sortInput.getValue8(), sortInput.getValue9(), sortInput.getValue10(), sortInput.getValue11(), sortInput.getValue12()}, weights);
+              ind[i-1] = new Individual(input.get(i), input.get(0), new int[] {sortInput.getValue1(), sortInput.getValue2(), sortInput.getValue3(), sortInput.getValue4(), sortInput.getValue5(), sortInput.getValue6(), sortInput.getValue7(), sortInput.getValue8(), sortInput.getValue9(), sortInput.getValue10(), sortInput.getValue11(), sortInput.getValue12(), sortInput.getValue13()}, weights);
           ArrayList<ArrayList<String>> input1 = MyUtility.readJsonStringInput(sortInput.getFile2());
           Location[] l = new Location[input1.size()];
           for (int i = 0; i < input1.size(); i++) {

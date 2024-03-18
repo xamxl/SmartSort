@@ -62,7 +62,8 @@ window.onload = function() {
         "attributeToBalance",
         "attributeToSplitBy",
         "attributeToNotIsolate",
-        "attributeToIsolate"];
+        "attributeToIsolate",
+        "attributeToGroupBy"];
 
     var itemsFormat = "Individuals Format: name, ";
     for (var j = 0; j < tags.length; j++) {

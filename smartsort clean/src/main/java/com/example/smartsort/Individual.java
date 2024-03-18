@@ -53,10 +53,10 @@ public class Individual {
         weights = w;
         name = x.get(0);
 
-        // Order: rankedChoices, rankedNotChoices, choices, notChoices, rankedItems, rankedNotItems, items, notItems, attributes, attributes1, attributes2, attributes3
-        choices = new String[12][];
-        headers = new String[12][];
-        choiceUnhappy = new boolean[12][];
+        // Order: rankedChoices, rankedNotChoices, choices, notChoices, rankedItems, rankedNotItems, items, notItems, attributes, attributes1, attributes2, attributes3, attribute4
+        choices = new String[13][];
+        headers = new String[13][];
+        choiceUnhappy = new boolean[13][];
         for (int i = 0; i < choices.length; i++) {
             choices[i] = new String[choiceParameters[i]];
             headers[i] = new String[choiceParameters[i]];
@@ -116,6 +116,10 @@ public class Individual {
         return choices[11];
     }
 
+    public String[] getAttributes4() {
+        return choices[12];
+    }
+
     public void setChoiceUnhappyAttributes(int i) {
         choiceUnhappy[8][i] = true;
     }
@@ -130,6 +134,10 @@ public class Individual {
 
     public void setChoiceUnhappyAttributes3(int i) {
         choiceUnhappy[11][i] = true;
+    }
+
+    public void setChoiceUnhappyAttributes4(int i) {
+        choiceUnhappy[12][i] = true;
     }
 
     public String getName() {

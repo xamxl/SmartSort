@@ -88,6 +88,15 @@ public class Location {
         for (int i = 0; i < e.getIndividuals()[0].getAttributes3().length; i++) {
             maxUnhappiness[4][i] += maxLocationSize;
         }
+
+        maxUnhappiness[5] = new double[e.getIndividuals()[0].getAttributes4().length];
+        for (int i = 0; i < e.getIndividuals()[0].getAttributes4().length; i++) {
+            ArrayList<String> attributeOptions4 = e.getAttribute4Options(i);
+            int[] attributeCounts = e.getAttribute4Counts(i, attributeOptions4);
+            for (int j = 0; j < attributeCounts.length; j++) {
+                maxUnhappiness[5][i] += attributeCounts[j] - 1;
+            }
+        }
     }
 
     public boolean isSpace() {
@@ -146,11 +155,12 @@ public class Location {
             for (int i = 0; i < members.get(0).getAttributes().length; i++) {
                 uS = 0;
                 ArrayList<String> attributeOptions = e.getAttributeOptions(i);
-                ArrayList<Integer> attributeCountsAll = e.getAttributeCounts(i);
+                //TODO: what are these lines doing here?
+                /*ArrayList<Integer> attributeCountsAll = e.getAttributeCounts(i);
                 int totalSize = 0;
                 for (Individual k : e.getIndividuals()) {
                     totalSize++;
-                }
+                }*/
                 double[] attributeCounts = new double[attributeOptions.size()];
                 for (Individual k : members) {
                     for (int j = 0; j < attributeOptions.size(); j++) {
@@ -266,6 +276,31 @@ public class Location {
                     }
                 }
                 unhappiness += weights[12][i] * MyUtility.interpolate(maxUnhappiness[4][i], uS);
+            }
+
+            for (int i = 0; i < members.get(0).getAttributes4().length; i++) {
+                uS = 0;
+                ArrayList<String> attributeOptions = e.getAttribute4Options(i);
+                int[] attributeFullCounts = e.getAttribute4Counts(i, attributeOptions);
+                int[] attributeCounts = new int[attributeOptions.size()];
+                for (Individual k : members) {
+                    for (int j = 0; j < attributeOptions.size(); j++) {
+                        if (attributeOptions.get(j).equals(k.getAttributes4()[i]))
+                            attributeCounts[j]++;
+                    }
+                }
+
+                for (int k = 0; k < attributeCounts.length; k++) {
+                    if (attributeCounts[k] != 0 && attributeCounts[k] != attributeFullCounts[k]) {
+                        uS += attributeFullCounts[k] - attributeCounts[k];
+                    }
+                }
+                if (uS > 0) {
+                    for (Individual k : members) {
+                        k.setChoiceUnhappyAttributes4(i);
+                    }
+                }
+                unhappiness += weights[13][i] * MyUtility.interpolate(maxUnhappiness[5][i], uS);
             }
         }
 

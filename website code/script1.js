@@ -19,7 +19,8 @@ window.onload = function() {
     "Attributes to balance",
     "Attributes to split by",
     "Attributes to not isolate",
-    "Attributes to isolate"];
+    "Attributes to isolate",
+    "Attributes to group by",];
 
     for (let i = 0; i < tags.length; i++) {
         var formRow = document.createElement('div');

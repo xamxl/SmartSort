@@ -113,7 +113,8 @@ window.onload = function() {
         "Attributes to balance",
         "Attributes to split by",
         "Attributes to not isolate",
-        "Attributes to isolate"];
+        "Attributes to isolate",
+        "Attributes to group by"];
     for (let type of types) {
         dropdown += "<option>" + type + "</option>";
     }

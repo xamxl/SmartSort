@@ -171,7 +171,8 @@ document.querySelector('[name="formContainer"]').addEventListener('click', funct
                         "Attributes to balance",
                         "Attributes to split by",
                         "Attributes to not isolate",
-                        "Attributes to isolate"];
+                        "Attributes to isolate",
+                        "Attributes to group by"];
 
                     let countMap = {};
                     let savedSortTypes = result.sortTypes;
