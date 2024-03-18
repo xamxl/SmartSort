@@ -109,7 +109,7 @@ public class Sort {
     public ArrayList<String> getAttribute4Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
-            if (i.getAttributes4()[w] == null)
+            if (i.getAttributes4()[w] == null || i.getAttributes4()[w].equals(""))
                 continue;
             boolean there = false;
             for (String k : options)
@@ -126,7 +126,7 @@ public class Sort {
         for (int i = 0; i < a4O.size(); i++) {
             int count = 0;
             for (Individual ii : individuals) {
-                if (ii.getAttributes4()[w] == null)
+                if (ii.getAttributes4()[w] == null || ii.getAttributes4()[w].equals(""))
                     continue;
                 if (ii.getAttributes4()[w].equals(a4O.get(i)))
                     count++;
