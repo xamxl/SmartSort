@@ -61,7 +61,8 @@ public class Location {
         name = n;
         minimum = m;
 
-        maxUnhappiness = new double[][] {{Math.pow(minimum * 60, 2)}, {}, {}, {}, {}};
+        // Added one more spot
+        maxUnhappiness = new double[][] {{Math.pow(minimum * 60, 2)}, {}, {}, {}, {}, {}};
     }
 
     // TODO: This and other max need to be checked.

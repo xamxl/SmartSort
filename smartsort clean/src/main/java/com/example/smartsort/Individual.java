@@ -87,8 +87,9 @@ public class Individual {
         for (int i = choiceParameters[5]; i > 0; i--)
             nRINM += i;
 
+        // value below used to be 2 (now is 10)
         maxUnhappiness = new double[] {
-            choiceParameters[0] * 2,
+            choiceParameters[0] * 10,
             choiceParameters[1],
             choiceParameters[2] * 2,
             10,
@@ -161,8 +162,9 @@ public class Individual {
                     unhappy = true;
             }
         }
+        // value below used to be 2
         if (! chosen)
-            uS += choices[0].length * 2;
+            uS += choices[0].length * 10;
         if (!unhappy)
             for (int i = 0; i < choiceUnhappy[0].length; i++)
                 choiceUnhappy[0][i] = true;

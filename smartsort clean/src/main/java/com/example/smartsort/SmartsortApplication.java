@@ -141,6 +141,7 @@ class FormDataController {
 
               // TODO: Confirm that iteration actually helps
               for (int i = 0; i < iter; i++) {
+                System.out.println("Iteration: " + i);
                   // TODO: What is the best setting for reassignX?
                   sort.reassignX(3);
                   sort.sumUnhappiness();

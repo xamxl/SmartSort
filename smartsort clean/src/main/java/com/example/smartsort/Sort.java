@@ -161,6 +161,7 @@ public class Sort {
         boolean stop;
         int minimum = 0;
         for (Individual i : MyUtility.shuffleIndividualArray(individuals)) {
+            System.out.println("Assigning " + i.getName());
             for (int ii = 0; ii < locations.length; ii++) {
                 if (! locations[ii].isSpace())
                     unhappinessSave1[ii] = -1;
