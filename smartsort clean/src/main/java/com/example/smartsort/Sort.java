@@ -9,9 +9,20 @@ public class Sort {
     private Individual[] individuals;
     private double totalUnhappiness;
 
+    private ArrayList<ArrayList<String>> attribute4Options;
+    private int[][] attribute4Counts;
+
     Sort(Location[] ws, Individual[] ss) {
         locations = ws;
         individuals = ss;
+        attribute4Options = new ArrayList<>();
+        for (int i = 0; i < individuals[0].getAttributes4().length; i++) {
+            attribute4Options.add(getAttribute4Options(i));
+        }
+        attribute4Counts = new int[attribute4Options.size()][];
+        for (int i = 0; i < individuals[0].getAttributes4().length; i++) {
+            attribute4Counts[i] = getAttribute4Counts(i, attribute4Options.get(i));
+        }
     }
 
     // TODO: confirm this copy method actually works (consider the use of static variables in Location class)
@@ -106,7 +117,7 @@ public class Sort {
         return options;
     }
 
-    public ArrayList<String> getAttribute4Options(int w) {
+    private ArrayList<String> getAttribute4Options(int w) {
         ArrayList<String> options = new ArrayList<>();
         for (Individual i : individuals) {
             if (i.getAttributes4()[w] == null || i.getAttributes4()[w].equals(""))
@@ -121,7 +132,11 @@ public class Sort {
         return options;
     }
 
-    public int[] getAttribute4Counts(int w, ArrayList<String> a4O) {
+    public ArrayList<String> getAttribute4OptionsPreCalculated(int w) {
+        return attribute4Options.get(w);
+    }
+
+    private int[] getAttribute4Counts(int w, ArrayList<String> a4O) {
         int[] counts = new int[a4O.size()];
         for (int i = 0; i < a4O.size(); i++) {
             int count = 0;
@@ -134,6 +149,10 @@ public class Sort {
             counts[i] = count;
         }
         return counts;
+    }
+
+    public int[] getAttribute4CountsPreCalculated(int w) {
+        return attribute4Counts[w];
     }
 
     public Individual[] getIndividuals() {

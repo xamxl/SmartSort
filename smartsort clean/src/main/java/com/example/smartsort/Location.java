@@ -92,8 +92,7 @@ public class Location {
 
         maxUnhappiness[5] = new double[e.getIndividuals()[0].getAttributes4().length];
         for (int i = 0; i < e.getIndividuals()[0].getAttributes4().length; i++) {
-            ArrayList<String> attributeOptions4 = e.getAttribute4Options(i);
-            int[] attributeCounts = e.getAttribute4Counts(i, attributeOptions4);
+            int[] attributeCounts = e.getAttribute4CountsPreCalculated(i);
             for (int j = 0; j < attributeCounts.length; j++) {
                 maxUnhappiness[5][i] += attributeCounts[j] - 1;
             }
@@ -281,8 +280,8 @@ public class Location {
 
             for (int i = 0; i < members.get(0).getAttributes4().length; i++) {
                 uS = 0;
-                ArrayList<String> attributeOptions = e.getAttribute4Options(i);
-                int[] attributeFullCounts = e.getAttribute4Counts(i, attributeOptions);
+                ArrayList<String> attributeOptions = e.getAttribute4OptionsPreCalculated(i);
+                int[] attributeFullCounts = e.getAttribute4CountsPreCalculated(i);
                 int[] attributeCounts = new int[attributeOptions.size()];
                 for (Individual k : members) {
                     for (int j = 0; j < attributeOptions.size(); j++) {
