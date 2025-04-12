@@ -255,10 +255,10 @@ document.getElementsByName('runTag')[0].addEventListener('click', function(event
 
     saveForm("page2.html").then(() => {
 
-    if (!getCookie("loginKey")) {
-        window.location.href = "login.html?prev=page2&mes=You_must_be_logged_in_to_run_a_sort.";
-        return;
-    }
+    //if (!getCookie("loginKey")) {
+        //window.location.href = "login.html?prev=page2&mes=You_must_be_logged_in_to_run_a_sort.";
+        //return;
+    //}
 
     formData.append("email", getCookie("email"));
     formData.append("key", getCookie("loginKey"));

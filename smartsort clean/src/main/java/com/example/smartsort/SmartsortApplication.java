@@ -66,9 +66,9 @@ class FormDataController {
   @CrossOrigin(origins = "http://localhost:8888")
   @PostMapping("/upload")
   public String handleFormUpload(@ModelAttribute SortInput sortInput, @RequestParam String type) {
-
-      if (! AccountServices.verifyLogin(sortInput.getEmail(), sortInput.getKey()))
-          return "{\"text\":\"INVALID\"}";
+      System.out.println("running");
+      //if (! AccountServices.verifyLogin(sortInput.getEmail(), sortInput.getKey()))
+          //return "{\"text\":\"INVALID\"}";
 
       Sort bestSort = null;
       int iterFound = -1;
@@ -274,10 +274,10 @@ class FormDataController {
       String jsonString = gson.toJson(result);
 
       if (type.equals("normal")) {
-          AccountFunctions.incrementSortCount(sortInput.getEmail(), 0);
+          //AccountFunctions.incrementSortCount(sortInput.getEmail(), 0);
           System.out.println("Sort Completed: title=" + sortInput.getString() + " iterations=" + sortInput.getNumber2() + " number of sorts=" + sortInput.getNumber3());
       } else {
-        AccountFunctions.incrementSortCount(sortInput.getEmail(), 1);
+        //AccountFunctions.incrementSortCount(sortInput.getEmail(), 1);
         System.out.println("Random Sort Completed: title=" + sortInput.getString() + " number of sorts=" + sortInput.getNumber3());
       }
 
